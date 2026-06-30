@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, intial-scale=1.0">
+			<link rel="stylesheet" href="../style3.css">
+		<title>Layout</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.js"></script>
+		<!--css 선언은 style태그 내ㅜ에-->
+		<script>
+			window.addEventListener('load', function () {
+			  const colors = [
+				'#f5f5f5'
+			  ]; // 마음에 드는 색들로 바꿔도 됨
+		  
+			  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    document.body.style.backgroundColor = randomColor;  // 화면 전체 배경 변경
+  });
+
+  window.addEventListener('load', function () {
+    const images = [
+      '../images_for_tenzi/2.png',
+      '../images_for_tenzi/2-1.png',
+	        '../images_for_tenzi/2-2.png',
+			      '../images_for_tenzi/2-3.png',
+				        '../images_for_tenzi/2-4.png'
+    ];
+
+    const img = document.getElementById('contentImage');
+    const randomIndex = Math.floor(Math.random() * images.length);
+    img.src = images[randomIndex];
+  });
+		  </script>
+		<style>
+			/*css의 주석은 이렇게*/
+			/*font-size : 글씨크기, text-align : 글씨 정렬, text-transform : 글씨 두께*/
+			/*line-height --> 내부 텍스트가 한줄일때 height와 동일한 값으로 설정해주면 글씨가 가운데로 정렬되게 됨.*/
+
+			a {
+			color: black;                            /* 글자 색 검정 */
+			text-decoration: none;                   /* 밑줄 제거 */
+			font-family: 'Times New Roman', Times, serif;  /* index.html(93-94)과 동일 */
+			font-weight: 600;
+			}
+
+			/* 방문/호버에도 색 안 바뀌게 하고 싶으면 옵션으로 같이 추가 */
+			a:visited {
+			color: black;
+			}
+			a:hover,
+			a:active {
+			color: black;
+			text-decoration: none;
+			}
+
+			#wrap {
+			margin: 0;
+			display:flex;
+			min-height: 100vh;
+			flex-direction: column;
+			font-size: 30px;
+			/* text-align: center;  <- 이 줄 지우거나 */
+			text-align: left;       /* 이렇게 바꾸기 */
+			}			
+			#top-section {
+		  	display: flex;
+  			flex-direction: row;
+  			width: 100%;           /* 화면 가로 전체 사용 */
+			}
+			
+			#side1 {
+			width: 25%;
+			height: 750px;
+			color: black;
+			/* line-height:600px;  <- 이 줄 지우기 */
+			padding-top: 20px;      /* 위에서 조금만 띄우기 */
+			padding-left: 20px;  /* ← 여기 값만 취향대로 조절 (예: 20~60px) */
+			box-sizing: border-box; /* ← 추가 */
+			}       
+
+			#contents {
+			width: 50%;
+			color: black;
+			display: flex;              /* flex 컨테이너로 만들기 */
+			justify-content: center;    /* 수평 가운데 */
+			align-items: center;        /* 수직 가운데 */
+			padding: 0;                 /* 진짜 정중앙을 원하면 패딩 제거 추천 */
+			box-sizing: border-box;
+			}
+
+			#contents img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;  /* 박스 안에서 비율 유지하며 들어가게 */
+			display: block;
+			}
+
+			#footer {
+			width: 100%; 
+			height: 100px; 
+			font-size: 16pt;
+			padding-top: 20px; 
+			color: black;
+			padding-top: 60px;;
+			padding-left: 20px;  /* ← 여기 값만 취향대로 조절 (예: 20~60px) */
+			}
+		
+			main { flex: 1; padding: 20px; }
+
+			/* 반응형: 모바일 화면 (768px 이하) */
+			@media (max-width: 768px) {
+			body { flex-direction: column; }
+			header {
+			width: 100%;
+			height: auto;
+			padding: 10px;
+			text-align: center;
+			}    
+		}
+
+		.menuLink {
+			display: block;      /* 줄바꿈용 <br> 없어도 한 줄씩 내려감 */
+			line-height: 1.2;      /* 기본보다 약 2배 정도 간격 */
+			margin-bottom: 1px;  /* 줄 간의 여유 추가 (원하면 조절) */
+			}
+
+			.menuLink:hover {
+			color: blue;          /* 커서 올렸을 때 파란색 */
+			text-decoration: none;/* 필요하면 밑줄 유지/제거 조절 */
+			}
+
+			@media (max-width: 768px) {
+
+			#top-section {
+			flex-direction: column;
+			}
+
+			#side1:first-child {
+			width: 100%;
+			height: auto;
+			font-size: 48px;
+			padding: 24px 20px 16px;
+			line-height: 1;
+			}
+
+			#side1:nth-child(2) {
+			width: 100%;
+			height: auto;
+			font-size: 42px;
+			padding: 8px 20px 20px;
+			line-height: 1;
+			}
+
+			.menuLink {
+				margin-bottom: 8px;   /* ← 24 → 8 */
+				line-height: 1.1;     /* 행간 압축 */
+			}
+
+			#contents {
+			width: 100%;
+			height: auto;
+			padding: 8px 0 12px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			}
+
+			#contents img {
+			max-width: 50%;              /* 데스크탑 대비 절반 */
+			height: auto;
+			display: block;
+			transform: rotate(90deg);    /* 모바일만 회전 */
+			transform-origin: center;    /* 중심 유지 */
+			}
+
+			#footer {
+			width: 100%;
+			font-size: 12pt;
+			padding: 8px 0 16px;
+			text-align: center;
+			}
+			}
+
+			
+
+			@media (max-width: 768px) {
+
+			#side1:first-child {
+			padding: 24px 20px 16px;
+			line-height: 0.5;
+			}
+
+			#side1:nth-child(2) {
+			padding: 8px 20px 20px;
+			line-height: 0.5;
+			}
+
+			.menuLink {
+			margin-bottom: 8px;
+			line-height: 0.75;
+			}
+			}
+
+			@media (max-width: 768px) {
+			#contents img {
+				max-height: none;
+			}
+			}
+
+
+        </style>
+	</head>
+	<body>
+		<!--주석은 이렇게 -->
+		<!-- div는 영역을 분리하기 위해 사용.-->
+		<div id="wrap">
+			<div id="top-section">
+				<div id="side1"><a href="../index.html"class="menuLink">jeon ahyun</a></div>
+
+				<div id="side1">
+				<a href="../html/works.html" class="menuLink">☞ works</a><br>
+				<a href="../html/texts.html" class="menuLink">☞ texts</a><br>
+				<a href="../html/contact.html" class="menuLink">☞ contact</a>
+				</div>
+
+				<div id="contents">
+					<img id="contentImage" src="./images_for_tenzi/2.png" alt="image">
+				  </div>		
+
+				</div>
+
+			<div id="footer">© 2026 jeon ahyun managed to make it somehow...</a></div>
+		</div>
+	</body>
+</html>

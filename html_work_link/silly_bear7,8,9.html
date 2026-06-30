@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0">
+    <link rel="stylesheet" href="../style3.css">
+    <title>Silly Bear(7,8,9)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.js"></script>
+    <script src="../sketch.js"></script>
+</head>
+<body>
+    <div class="linedot1"></div>
+    <div class="linedot2"></div>
+
+    <p class="important2">Silly Bear(7,8,9), 2022, drypoint, pencil, 30*30cm</p>
+    <img src="../works_images/silly_bear7.png" width="300">
+    <img src="../works_images/silly_bear8.png" width="295">
+    <img src="../works_images/silly_bear9.png" width="302">
+
+        <!-- 각 details에 id 추가 -->
+        <a href="../html/works.html" id="back-top">back</a>
+
+        <script>
+            function saveState() {
+                const worksDetailOpen = document.getElementById('worksDetail').open;
+                const state = { mapDetailOpen, worksDetailOpen };
+                history.replaceState(state, '');
+            }
+    
+            function loadState() {
+                const state = history.state;
+                if (state) {
+                    document.getElementById('worksDetail').open = state.worksDetailOpen;
+                }
+            }
+    
+            window.addEventListener('DOMContentLoaded', loadState);
+        </script>
+        <script>
+            document.getElementById('back-top').addEventListener('click', function (e) {
+              e.preventDefault();
+              history.back();
+            });
+          </script>
+</body> 
+
+</html>

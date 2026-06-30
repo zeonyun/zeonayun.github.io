@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0">
+    <link rel="stylesheet" href="../style3.css">
+    <title>No Access to Printer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.js"></script>
+    <script src="../sketch.js"></script>
+</head>
+<body>
+
+    <p class="important2">No Access to Printer, 2025<br> 
+        digital inkjet print on paper, 16*21cm</p>
+        <div style="text-align:center;">
+            <img src="../works_images/NoAccess0-1.jpg"
+                 style="display:inline-block; width:400px; max-width:none; margin:20px 5px;">
+            <img src="../works_images/NoAccess0-2.jpg"
+                 style="display:inline-block; width:400px; max-width:none; margin:20px 5px;">
+          </div>
+          
+    <img src="../works_images/NoAccess1.png" width="250"><br>
+    <img src="../works_images/NoAccess2.png" width="250"><br>
+    <img src="../works_images/NoAccess3.png" width="250"><br>
+    <img src="../works_images/NoAccess4.png" width="250"><br>
+    <img src="../works_images/NoAccess5.png" width="250"><br>
+    <img src="../works_images/NoAccess6.png" width="250"><br>
+    <img src="../works_images/NoAccess7.png" width="250"><br>
+    <img src="../works_images/NoAccess8.png" width="250"><br>
+    <img src="../works_images/NoAccess9.png" width="250"><br>
+    <img src="../works_images/NoAccess10.png" width="250"><br>
+    <!-- 각 details에 id 추가 -->
+    <a href="../html/works.html" id="back-top">back</a>
+
+    <script>
+        function saveState() {
+            const worksDetailOpen = document.getElementById('worksDetail').open;
+            const state = { mapDetailOpen, worksDetailOpen };
+            history.replaceState(state, '');
+        }
+
+        function loadState() {
+            const state = history.state;
+            if (state) {
+                document.getElementById('worksDetail').open = state.worksDetailOpen;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadState);
+    </script>
+    <script>
+        document.getElementById('back-top').addEventListener('click', function (e) {
+          e.preventDefault();
+          history.back();
+        });
+      </script>
+</body> 
+
+</html>
