@@ -239,10 +239,15 @@ function hideAllGalleriesAndSubmenus() {
 }
 
 // 갤러리 padding-top을 메뉴 높이에 즉시 맞춤 (transition 없이)
+// collapsed 상태의 subitemGroup은 CSS transition이 아직 시작 안 된 상태여서
+// offsetHeight가 부풀려질 수 있으므로, 인라인 max-height:0으로 고정 후 측정한다
 function updateGalleryPadding() {
     const menu = document.getElementById('topMenuBar');
     if (!menu.classList.contains('visible')) return;
+    const groups = menu.querySelectorAll('.subitemGroup.collapsed');
+    groups.forEach(function(g) { g.style.transition = 'none'; g.style.maxHeight = '0'; });
     const h = menu.offsetHeight;
+    groups.forEach(function(g) { g.style.transition = ''; g.style.maxHeight = ''; });
     ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
         const g = document.getElementById(id);
         if (g) { g.style.transition = 'none'; g.style.paddingTop = h + 'px'; }
