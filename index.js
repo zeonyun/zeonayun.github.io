@@ -257,25 +257,24 @@ function updateGalleryPadding() {
 
 const GALLERY_IDS = ['artGallery', 'designGallery', 'textGallery', 'contactGallery'];
 
-// 모바일 서브메뉴 토글 + 갤러리 padding-top CSS 트랜지션 동기화
+// 모바일 서브메뉴 토글 + 갤러리 padding-top 실시간 동기화
+// CSS transition 진행 중 offsetHeight는 현재 애니메이션 중간값을 반환하므로
+// RAF로 매 프레임 측정해 갤러리를 서브메뉴와 함께 움직인다
 function syncSubmenuToggle(sectionId) {
     const menu = document.getElementById('topMenuBar');
     const submenu = document.querySelector('#' + sectionId + ' .subitemGroup');
     if (!submenu) return;
     submenu.classList.toggle('collapsed');
-    const targetH = menu.offsetHeight;
-    GALLERY_IDS.forEach(function(id) {
-        const g = document.getElementById(id);
-        if (!g) return;
-        g.style.transition = 'padding-top 0.4s ease';
-        g.style.paddingTop = targetH + 'px';
-    });
-    setTimeout(function() {
+    const start = Date.now();
+    function step() {
+        const h = menu.offsetHeight;
         GALLERY_IDS.forEach(function(id) {
             const g = document.getElementById(id);
-            if (g) g.style.transition = '';
+            if (g) { g.style.transition = 'none'; g.style.paddingTop = h + 'px'; }
         });
-    }, 450);
+        if (Date.now() - start < 450) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
 }
 
 // 갤러리가 열릴 때 body 스크롤 차단 (iOS fixed 버그 방지)
