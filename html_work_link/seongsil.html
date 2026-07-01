@@ -2,66 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, intial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style3.css">
     <title>seongsil</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.js"></script>
     <script src="../sketch.js"></script>
 </head>
 <body>
-    <p class="important2">성실한 스코어 성실한 인덱스, 2025<br> 
+    <p class="important2">성실한 스코어 성실한 인덱스, 2025<br>
         silkscreen, digital inkjet print on paper, 22*31cm</p>
-    
-    <div class="work-images">
-        <img src="../works_images/seongsil1.jpg" width="250"><br>
-        <img src="../works_images/seongsil2.jpg" width="250"><br>
-        <img src="../works_images/seongsil3.jpg" width="500"><br>
-        <img src="../works_images/seongsil4.jpg" width="500"><br>
-        <img src="../works_images/seongsil5.jpg" width="500"><br>
-        <img src="../works_images/seongsil6.jpg" width="500"><br>
-        <img src="../works_images/seongsil7.jpg" width="500"><br>
-        <iframe
-        src="../works_images/seongsil.pdf#toolbar=0&navpanes=0"
-        style="
-          border: none;
-          width: 75vw;
-          height: 140vh;
-          display: block;
-          margin: 60px auto;
-        ">
-      </iframe>
-      
-      
-      
-      
-      
-      </div>
-      
-      <a href="../html/works.html" id="back-top">back</a>
 
-      <script>
-          function saveState() {
-              const worksDetailOpen = document.getElementById('worksDetail').open;
-              const state = { mapDetailOpen, worksDetailOpen };
-              history.replaceState(state, '');
-          }
-  
-          function loadState() {
-              const state = history.state;
-              if (state) {
-                  document.getElementById('worksDetail').open = state.worksDetailOpen;
-              }
-          }
-  
-          window.addEventListener('DOMContentLoaded', loadState);
-      </script>
-      <script>
-          document.getElementById('back-top').addEventListener('click', function (e) {
-            e.preventDefault();
-            history.back();
-          });
-        </script>
-    
-</body> 
+    <img src="../works_images/seongsil1.jpg" width="250">
+    <div class="work-break"></div>
+    <img src="../works_images/seongsil2.jpg" width="250">
+    <img src="../works_images/seongsil3.jpg" width="500">
+    <img src="../works_images/seongsil4.jpg" width="500">
+    <img src="../works_images/seongsil5.jpg" width="500">
+    <img src="../works_images/seongsil6.jpg" width="500">
+    <img src="../works_images/seongsil7.jpg" width="500">
+
+    <iframe
+        src="../works_images/seongsil.pdf#toolbar=0&navpanes=0"
+        style="border: none; width: 75vw; height: 140vh; display: block; margin: 60px auto;">
+    </iframe>
+
+    <a href="../html/works.html" id="back-top">back</a>
+
+    <script>
+        document.getElementById('back-top').addEventListener('click', function (e) {
+          e.preventDefault();
+          history.back();
+        });
+    </script>
+</body>
 
 </html>

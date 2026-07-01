@@ -1,0 +1,575 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: white;
+    color: black;
+    font-family: Verdana;
+}
+
+#canvasContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.fullscreen-image {
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.fullscreen-image img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#letterOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 2;
+    pointer-events: none;
+}
+
+#letterOverlay span {
+    position: absolute;
+    color: black;
+    font-weight: 400;
+    letter-spacing: normal;
+    opacity: 0.15;
+    user-select: none;
+    pointer-events: auto;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    cursor: pointer;
+}
+
+#letterOverlay span:hover,
+#letterOverlay.hoverAll span {
+    background-color: #333 !important;
+    color: white !important;
+}
+
+#topMenuBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: none;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10rem;
+    padding: 1.5rem 3rem;
+    background: transparent;
+    z-index: 60;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+#topMenuBar.visible {
+    display: flex;
+}
+
+#topMenuBar .brand {
+    font-weight: 400;
+    font-size: 12px;
+    white-space: nowrap;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.menuSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 170px;
+    flex-shrink: 0;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+.menuHeading {
+    font-weight: 400;
+    font-size: 12px;
+    cursor: default;
+    display: inline-block;
+}
+
+.menuHeading.clickable {
+    cursor: pointer;
+}
+
+.menuHeading.clickable:hover {
+    text-decoration: underline;
+}
+
+#topMenuBar .brand:hover {
+    text-decoration: underline;
+}
+
+.menuHeading::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: black;
+    margin-top: 0.5rem;
+}
+
+.menuSubitem {
+    font-weight: 400;
+    font-size: 12px;
+    padding: 0;
+    display: block;
+}
+
+.subitemGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.6rem 2px 0;
+    max-height: 2000px;
+    transition: max-height 0.4s ease;
+}
+
+.subitemGroup.collapsed {
+    max-height: 0;
+    overflow: hidden;
+}
+
+/* 갤러리 열려있을 때 해당 섹션에 커서 올리면 목차 슬라이드 다운 */
+#artSection:hover .subitemGroup.collapsed,
+#designSection:hover .subitemGroup.collapsed,
+#textSection:hover .subitemGroup.collapsed {
+    max-height: 2000px;
+}
+
+.menuSubitem.hidden {
+    display: none;
+}
+
+.contactSection {
+    position: relative;
+    max-height: none;
+    overflow: visible;
+}
+
+#contactInfo {
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 2.2rem;
+    left: 0;
+    z-index: 70;
+    padding: 2px 4px;
+    white-space: normal;
+    line-height: 1.4;
+    transition: opacity 0.2s;
+}
+
+#contactInfo a {
+    color: black;
+    text-decoration: none;
+}
+
+#contactInfo a:hover {
+    text-decoration: underline;
+}
+
+.contactSection:hover #contactInfo,
+.contactSection.open #contactInfo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.printmakingWrapper,
+.itemWrapper,
+.yearWrapper {
+    display: block;
+}
+
+#printmakingList,
+.subList,
+.yearList {
+    display: none;
+    list-style: none;
+    margin: 0.5rem 0 0 0;
+    padding: 0;
+}
+
+#printmakingList.open,
+.subList.open,
+.yearList.open {
+    display: block;
+    border-bottom: 1px dashed black;
+    padding-bottom: 0.4rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.2rem;
+}
+
+#printmakingList li,
+.subList li,
+.yearList li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    margin-bottom: 0.2rem;
+}
+
+.item-year {
+    flex-shrink: 0;
+    min-width: 2.2rem;
+    font-size: 12px;
+    font-weight: 400;
+    color: black;
+}
+
+#printmakingList li a,
+.subList li a,
+.yearList li a {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: black;
+    text-decoration: none;
+    padding: 0 2px;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+#printmakingList li a:hover,
+.subList li a:hover,
+.yearList li a:hover {
+    text-decoration: underline;
+}
+
+.clickableSubitem {
+    cursor: pointer;
+}
+
+.clickableSubitem:hover {
+    text-decoration: underline;
+}
+
+.clickableSubitem.active {
+    position: relative;
+}
+
+.clickableSubitem.active::before {
+    content: '⮕';
+    margin-right: 0.3rem;
+}
+
+.clickableSubitem.active::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.4rem;
+    border-bottom: 1px dashed black;
+}
+
+#menuOverlay {
+    display: none !important;
+}
+
+#menuOverlay .menuLink {
+    display: block;
+    color: black;
+    text-decoration: none;
+    line-height: 1.2;
+    margin-bottom: 1px;
+    font-size: 2rem;
+}
+
+#menuOverlay .menuLink:hover {
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#menuOverlay .closeMenu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: black;
+    background: none;
+    border: none;
+}
+
+/* Galleries */
+#artGallery, #designGallery, #textGallery {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 30;
+    padding: 6rem 3rem 5rem;
+    box-sizing: border-box;
+}
+
+#artGallery.visible, #designGallery.visible, #textGallery.visible {
+    display: block;
+}
+
+.galleryGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem 2rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.galleryCategoryRow {
+    grid-column: 1 / -1;
+    font-size: 12px;
+    font-weight: 400;
+    border-top: 1px solid black;
+    padding-top: 0.5rem;
+    margin-top: 2rem;
+}
+
+.galleryThumb {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.galleryThumb img {
+    /* 긴 변을 컬럼 너비와 동일하게 고정: (100vw - 좌우패딩6rem - 3개 gap 6rem) / 4열 */
+    max-width: 100%;
+    max-height: calc((100vw - 12rem) / 4);
+    width: auto;
+    height: auto;
+    display: block;
+    transition: opacity 0.15s;
+}
+
+.galleryThumb:hover img {
+    opacity: 0.8;
+}
+
+.galleryCaption {
+    font-size: 12px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    margin-top: 0.4rem;
+    line-height: 1.5;
+    display: block;
+    color: black;
+}
+
+.galleryThumb:hover .galleryCaption {
+    text-decoration: underline;
+}
+
+/* Text gallery: 리스트 */
+.textList {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.textList .galleryCategoryRow {
+    margin-top: 1.2rem;
+    margin-bottom: 0.6rem;
+}
+
+.textListItem {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: black;
+    text-decoration: none;
+    padding: 0.15rem 0;
+    line-height: 1.6;
+}
+
+.textListItem:hover {
+    text-decoration: underline;
+}
+
+/* Text gallery: image 대신 텍스트 카드 (미사용) */
+.textCard {
+    width: 100%;
+    min-height: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.7rem 0.8rem;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    transition: border-color 0.15s;
+}
+
+.galleryThumb:hover .textCard {
+    border-color: #333;
+}
+
+.textCardYear {
+    font-size: 12px;
+    color: #999;
+}
+
+.textCardTitle {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.textCardExcerpt {
+    font-size: 10px;
+    color: #aaa;
+    line-height: 1.5;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+#copyright {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 3rem;
+    font-size: 11px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    color: black;
+    z-index: 20;
+}
+
+.gallery-copyright {
+    font-size: 11px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    color: black;
+    padding: 4rem 0 2rem 0;
+}
+
+/* ── 태블릿: ≤1100px ── */
+@media (max-width: 1100px) {
+    #topMenuBar {
+        gap: 5rem;
+    }
+}
+
+/* ── 태블릿: ≤900px ── */
+@media (max-width: 900px) {
+    #topMenuBar {
+        gap: 2.5rem;
+        padding: 1.5rem 2rem;
+    }
+    .menuSection {
+        width: 130px;
+    }
+    .galleryGrid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem 1.5rem;
+    }
+    .galleryThumb img {
+        max-height: calc((100vw - 7rem) / 3);
+    }
+    #artGallery, #designGallery, #textGallery {
+        padding: 6rem 2rem 5rem;
+    }
+}
+
+/* ── 모바일: ≤768px ── */
+@media (max-width: 768px) {
+
+    /* topMenuBar: 2×2 그리드 (brand 전체폭 + 섹션 2열) */
+    #topMenuBar.visible {
+        display: grid;
+    }
+    #topMenuBar {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem 2.5rem;
+        padding: 1.2rem 1.5rem 1rem;
+        align-items: start;
+    }
+    #topMenuBar .brand {
+        grid-column: 1 / -1;
+        display: block;
+        border-bottom: 1px solid black;
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.1rem;
+    }
+    .menuSection {
+        width: auto;
+        min-width: 0;
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    /* 갤러리: 좌우/하단 패딩만 설정, padding-top은 JS로 동적 계산 */
+    #artGallery, #designGallery, #textGallery {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+        padding-bottom: 5rem;
+    }
+
+    /* 갤러리 그리드: 2열 */
+    .galleryGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem 0.8rem;
+    }
+    .galleryThumb img {
+        max-height: calc((100vw - 3rem) / 2);
+    }
+
+    /* 텍스트 갤러리 */
+    .textList .galleryCategoryRow {
+        margin-top: 1rem;
+    }
+
+    /* 터치 타겟: 탭하기 쉽게 메뉴 항목 최소 높이 확보 */
+    .menuSubitem,
+    .clickableSubitem {
+        min-height: 2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    #printmakingList li a,
+    .subList li a,
+    .yearList li a {
+        padding: 0.3rem 2px;
+    }
+
+    .galleryThumb {
+        cursor: pointer;
+    }
+}

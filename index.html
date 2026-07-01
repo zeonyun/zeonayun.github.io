@@ -4,565 +4,202 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images_for_tenzi/rock.png">
-    <title>Jeon Hyun</title>
+    <title>ahyun</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.js"></script>
-
-    <style>
-        /* Flexbox로 이미지 정 가운데 배치 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-            color: black;
-            font-family: Verdana;
-        }
-
-        #canvasContainer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-
-        .fullscreen-image {
-        position: relative;          /* ⭐ 이미지/텍스트의 기준점 */
-        text-decoration: none;       /* 밑줄 제거 */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        }
-        
-        .fullscreen-image img {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        position: absolute;
-        top: 0;
-        left: 0;
-        }
-
-        #letterOverlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: 2;
-        pointer-events: none;
-        }
-
-        /*.linedot1 {
-            position: absolute;
-            width: 100%;
-            height: 10px;
-            border-top: 8px dotted rgb(0, 0, 0, 0.1); 
-            top: 30px;
-        }
-        
-        .linedot2 {
-            position: fixed;
-            width: 100%;
-            height: 30px;
-            border-top: 8px dotted rgb(0, 0, 0, 0.1); 
-            background-color: white;
-            bottom: 0px;
-        }*/
-
-        body, html {
-
-        margin: 0; /* 기본 여백 제거 */
-        padding: 0;
-        height: 100vh;  /* 전체 높이 */
-      }
-         #letterOverlay span {
-        position: absolute;
-        color: black;
-        font-weight: 400;
-        letter-spacing: normal;
-        opacity: 0.15;
-        user-select: none;
-        pointer-events: auto;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        cursor: pointer;
-        }
-
-        #letterOverlay span:hover {
-        background-color: #333 !important;
-        color: white !important;
-        }
-
-        #letterOverlay.hoverAll span {
-        background-color: #333 !important;
-        color: white !important;
-        }
-
-        #topMenuBar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: none;
-            flex-direction: row;
-            align-items: flex-start;
-            gap: 10rem;
-            padding: 1.5rem 3rem;
-            background: transparent;
-            z-index: 60;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.4;
-        }
-
-        #topMenuBar.visible {
-            display: flex;
-        }
-
-        #topMenuBar .brand {
-            font-weight: 400;
-            text-transform: none;
-            letter-spacing: normal;
-            font-size: 14px;
-            white-space: nowrap;
-            display: inline-block;
-        }
-
-        .menuSection {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            width: 170px;
-            flex-shrink: 0;
-            max-height: calc(100vh - 4rem);
-            overflow-y: auto;
-        }
-
-        .menuHeading {
-            font-weight: 400;
-            font-size: 14px;
-            letter-spacing: normal;
-            text-transform: none;
-            cursor: default;
-            display: inline-block;
-        }
-
-        .menuHeading.clickable {
-            cursor: pointer;
-        }
-
-        .menuHeading.clickable:hover {
-            text-decoration: none;
-        }
-
-        .menuHeading::after {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 1px;
-            background: black;
-            margin-top: 0.5rem;
-        }
-
-        .menuSubitem {
-            font-weight: 400;
-            font-size: 14px;
-            letter-spacing: normal;
-            text-transform: none;
-            padding: 0;
-            display: block;
-        }
-
-        .subitemGroup {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            padding: 0 2px;
-        }
-
-        .menuSubitem.hidden {
-            display: none;
-        }
-
-        .contactSection {
-            position: relative;
-            max-height: none;
-            overflow: visible;
-        }
-
-        #contactInfo {
-            display: none;
-            position: absolute;
-            top: 2.2rem;
-            left: 0;
-            z-index: 70;
-            padding: 2px 4px;
-            white-space: normal;
-            line-height: 1.4;
-        }
-
-        #contactInfo a {
-            color: black;
-            text-decoration: none;
-        }
-
-        #contactInfo a:hover {
-            text-decoration: underline;
-        }
-
-        .printmakingWrapper {
-            display: block;
-        }
-
-        #printmakingList {
-            display: none;
-            list-style: none;
-            margin: 0.5rem 0 0 0;
-            padding: 0;
-        }
-
-        #printmakingList.open {
-            display: block;
-        }
-
-        #printmakingList li,
-        .subList li,
-        .yearList li {
-            display: flex;
-            gap: 0.6rem;
-            align-items: baseline;
-            margin-bottom: 0.2rem;
-        }
-
-        .item-year {
-            flex-shrink: 0;
-            min-width: 2.2rem;
-            font-size: 14px;
-            font-weight: 400;
-            color: black;
-        }
-
-        #printmakingList.open,
-        .subList.open,
-        .yearList.open {
-            border-bottom: 1px dashed black;
-            padding-bottom: 0.4rem;
-            margin-bottom: 0.2rem;
-        }
-
-        #printmakingList li a,
-        .subList li a,
-        .yearList li a {
-            display: block;
-            font-size: 14px;
-            font-weight: 400;
-            color: black;
-            text-decoration: none;
-            padding: 0 2px;
-            white-space: normal;
-            overflow-wrap: break-word;
-        }
-
-        #printmakingList li a:hover,
-        .subList li a:hover,
-        .yearList li a:hover {
-            text-decoration: underline;
-        }
-
-        .clickableSubitem {
-            cursor: pointer;
-        }
-
-        .clickableSubitem:hover {
-            text-decoration: underline;
-        }
-
-        .clickableSubitem.active {
-            position: relative;
-        }
-
-        .clickableSubitem.active::before {
-            content: '⮕';
-            margin-right: 0.3rem;
-        }
-
-        .itemWrapper {
-            display: block;
-        }
-
-        .subList {
-            display: none;
-            list-style: none;
-            margin: 0.5rem 0 0 0;
-            padding: 0;
-        }
-
-        .subList.open {
-            display: block;
-        }
-
-
-        .clickableSubitem.active::after {
-            content: '';
-            display: block;
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -0.4rem;
-            border-bottom: 1px dashed black;
-        }
-
-        .yearWrapper {
-            display: block;
-        }
-
-        .yearList {
-            display: none;
-            list-style: none;
-            margin: 0.5rem 0 0 0;
-            padding: 0;
-        }
-
-        .yearList.open {
-            display: block;
-        }
-
-
-        .contactSection.open #contactInfo {
-            display: block;
-        }
-
-        #menuOverlay {
-            display: none !important;
-        }
-
-        #menuOverlay.show {
-            display: block;
-        }
-
-        #menuOverlay .menuLink {
-            display: block;
-            color: black;
-            text-decoration: none;
-            line-height: 1.2;
-            margin-bottom: 1px;
-            font-size: 2rem;
-        }
-
-        #menuOverlay .menuLink:hover {
-            color: white;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        }
-
-        #menuOverlay .closeMenu {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            font-size: 1rem;
-            color: black;
-            background: none;
-            border: none;
-        }
-
-        /* 모바일 */
-        @media (max-width: 768px) {
-        .fullscreen-image .imtext {
-            font-size: 24pt;
-        }
-
-        /* 모바일에서 전체 덩어리 위로 */
-        #canvasContainer {
-            transform: translateY(-5vh);
-        }
-        }
-
-
-
-    </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body onload="showImage()">
     <div id="canvasContainer">
         <div id="imageContainer" class="fullscreen-image">
-          <img id="introImg" alt="randomImage"/>
+            <img id="introImg" alt="randomImage"/>
         </div>
         <div id="letterOverlay"></div>
         <div id="topMenuBar">
-            <span class="brand">ahyun</span>
-            <div class="menuSection">
-                <div class="menuHeading">art</div>
+            <span class="brand" onclick="resetToMenuState()">ahyun</span>
+            <div class="menuSection" id="artSection">
+                <div class="menuHeading clickable" onclick="showArtGallery()">art</div>
                 <div class="subitemGroup">
-                <div class="printmakingWrapper">
-                <span class="menuSubitem clickableSubitem" onclick="togglePrintmakingList(this)">printmaking</span>
-                <ul id="printmakingList">
-                    <li><span class="item-year">2025</span><a href="html_work_link/activerocks.html">Active Rocks</a></li>
-                    <li><span class="item-year">2025</span><a href="html_work_link/sisyphus.html">Sisyphus' Light Ascent</a></li>
-                    <li><span class="item-year">2025</span><a href="html_work_link/Gongjungseokcho.html">공중석초</a></li>
-                    <li><span class="item-year">2025</span><a href="html_work_link/orchid.html">Orchid Field</a></li>
-                    <li><span class="item-year">2023</span><a href="html_work_link/illgwang.html">일광欲</a></li>
-                    <li><span class="item-year">2023</span><a href="html_work_link/cant_eat_sunlight.html">I can't eat sunlight</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/hyo.html">孝</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/atozuki.html">跡継ぎ</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/nan.html">Nan</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/venus.html">Venus</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/goku1.html">獄(1)</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/hyeokgeose_house.html">Hyeokgeose's house</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/hyeokgeose1.html">Hyeokgeose(1-2)</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/hyeokgeose_card1.html">Hyeokgeose card(1-5)</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/Ungnyeo(1).html">Ungnyeo(1-2)</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/Ungnyeo_house2.html">Ungnyeo's house</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/Ungnyeo_card1.html">Ungnyeo card(1-4)</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/eating_house.html">Eating house challenge</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/daughter.html">Daughter</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/dokkyo1,2.html">独居(1-4)</a></li>
-                    <li><span class="item-year">2022</span><a href="html_work_link/silly_bear1,2,3.html">Silly Bear(1-9)</a></li>
-                    <li><span class="item-year">2021</span><a href="html_work_link/Ungnyeo.html">Ungnyeo</a></li>
-                    <li><span class="item-year">2021</span><a href="html_work_link/mung2.html">Mung(2)</a></li>
-                    <li><span class="item-year">2021</span><a href="html_work_link/mung1.html">Mung(1)</a></li>
-                    <li><span class="item-year">2021</span><a href="html_work_link/perfect_daughter.html">Perfect daughter</a></li>
-                    <li><span class="item-year">2021</span><a href="html_work_link/untitled.html">Untitled</a></li>
-                    <li><span class="item-year">2021</span><a href="html_work_link/xxapato.html">xxアパート</a></li>
-                </ul>
-                </div>
-                <div class="itemWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleList('paintingList', this)">painting</span>
-                    <ul id="paintingList" class="subList">
-                        <li><span class="item-year">2023</span><a href="html_work_link/independent_point.html">An independent point Series</a></li>
-                        <li><span class="item-year">2023</span><a href="html_work_link/kafka.html">Untitled</a></li>
-                        <li><span class="item-year">2022</span><a href="html_work_link/mung3.html">Mung(3)</a></li>
-                        <li><span class="item-year">2022</span><a href="html_work_link/drawing0.html">Drawing(1-14)</a></li>
-                        <li><span class="item-year">2021</span><a href="html_work_link/Odds and Ends8.html">Odds and Ends Series</a></li>
-                    </ul>
-                </div>
-                <div class="itemWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleList('mediaArtList', this)">media-art</span>
-                    <ul id="mediaArtList" class="subList">
-                        <li><span class="item-year">2025</span><a href="html_work_link/exemplary_posture.html">An Exemplary Posture for Moving Stones</a></li>
-                        <li><span class="item-year">2025</span><a href="html_work_link/push_lightly.html">Push Lightly</a></li>
-                        <li><span class="item-year">2025</span><a href="html_work_link/drunker2.html">Drunker, ich muss dich lassen (COEX)</a></li>
-                        <li><span class="item-year">2025</span><a href="html_work_link/drunker1.html">Drunker, ich muss dich lassen (Gallery 17717)</a></li>
-                        <li><span class="item-year">2024</span><a href="html_work_link/game_for_studying_in_japan.html">Game for studying in Japan</a></li>
-                        <li><span class="item-year">2023</span><a href="html_work_link/shinji and sword.html">A conversation between Shinji and the sword</a></li>
-                        <li><span class="item-year">2023</span><a href="html_work_link/web_of_cogito.html">The website of Cogito</a></li>
-                        <li><span class="item-year">2022</span><a href="html_work_link/ayy_gretel.html">Ayy! Gretel!</a></li>
-                    </ul>
-                </div>
-                <div class="itemWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleList('etcList', this)">etc</span>
-                    <ul id="etcList" class="subList">
-                        <li><span class="item-year">2025</span><a href="html_work_link/gyeonggi.html">'Master Class 60h' Flat Form Program</a></li>
-                    </ul>
-                </div>
+                    <div class="printmakingWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('printmakingList', this)">printmaking</span>
+                        <ul id="printmakingList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/activerocks.html">Active Rocks</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/sisyphus.html">Sisyphus' Light Ascent</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/Gongjungseokcho.html">공중석초</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/orchid.html">Orchid Field</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/ToPrinter.html">To. Printer</a></li>                            
+                            <li><span class="item-year">2023</span><a href="html_work_link/illgwang.html">일광欲</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/cant_eat_sunlight.html">I can't eat sunlight</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/hyo.html">孝</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/atozuki.html">跡継ぎ</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/nan.html">Nan</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/venus.html">Venus</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/goku1.html">獄(1)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/hyeokgeose_house.html">Hyeokgeose's house</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/hyeokgeose1.html">Hyeokgeose(1-2)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/hyeokgeose_card1.html">Hyeokgeose card(1-5)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/Ungnyeo(1).html">Ungnyeo(1-2)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/Ungnyeo_house2.html">Ungnyeo's house</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/Ungnyeo_card1.html">Ungnyeo card(1-4)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/eating_house.html">Eating house challenge</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/daughter.html">Daughter</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/dokkyo1,2.html">独居(1-4)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/silly_bear1,2,3.html">Silly Bear(1-9)</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/Ungnyeo.html">Ungnyeo</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/mung2.html">Mung(2)</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/mung1.html">Mung(1)</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/perfect_daughter.html">Perfect daughter</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/untitled.html">Untitled</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/xxapato.html">xxアパート</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('artistBookList', this)">artist book</span>
+                        <ul id="artistBookList" class="subList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/ultra.html">초미세 돌덩이</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/seongsil.html">성실한 스코어 성실한 인덱스</a></li>
+                            <li><span class="item-year">2024</span><a href="html_work_link/muscle.html">Creative muscle Exercise guide</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/law.html">Within the law</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/weed.html">A normal weed guide</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('paintingList', this)">painting</span>
+                        <ul id="paintingList" class="subList">
+                            <li><span class="item-year">2023</span><a href="html_work_link/independent_point.html">An independent point Series</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/kafka.html">Untitled</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/mung3.html">Mung(3)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/drawing0.html">Drawing(1-14)</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/Odds and Ends8.html">Odds and Ends Series</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('mediaArtList', this)">media-art</span>
+                        <ul id="mediaArtList" class="subList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/exemplary_posture.html">An Exemplary Posture for Moving Stones</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/push_lightly.html">Push Lightly</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/drunker2.html">Drunker, ich muss dich lassen (COEX)</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/drunker1.html">Drunker, ich muss dich lassen (Gallery 17717)</a></li>
+                            <li><span class="item-year">2024</span><a href="html_work_link/game_for_studying_in_japan.html">Game for studying in Japan</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/shinji and sword.html">A conversation between Shinji and the sword</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/ayy_gretel.html">Ayy! Gretel!</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('etcList', this)">etc</span>
+                        <ul id="etcList" class="subList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/gyeonggi.html">'Master Class 60h' Flat Form Program</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="menuSection">
-                <div class="menuHeading">design</div>
+            <div class="menuSection" id="designSection">
+                <div class="menuHeading clickable" onclick="showDesignGallery()">design</div>
                 <div class="subitemGroup">
-                <div class="itemWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleList('bookList', this)">book</span>
-                    <ul id="bookList" class="subList">
-                        <li><span class="item-year">2025</span><a href="html_work_link/ultra.html">Ultrafine stone particles</a></li>
-                        <li><span class="item-year">2025</span><a href="html_work_link/seongsil.html">Sincere Score, Sincere Index</a></li>
-                        <li><span class="item-year">2025</span><a href="html_work_link/NoAccess.html">No Access to Printer</a></li>
-                        <li><span class="item-year">2024</span><a href="html_work_link/ZURY.html">ZURY</a></li>
-                        <li><span class="item-year">2024</span><a href="html_work_link/tsukuba.html">TSUKUBA!</a></li>
-                        <li><span class="item-year">2023</span><a href="html_work_link/muscle.html">Creative muscle Exercise guide</a></li>
-                        <li><span class="item-year">2023</span><a href="html_work_link/law.html">Within the law</a></li>
-                        <li><span class="item-year">2023</span><a href="html_work_link/weed.html">A normal weed guide</a></li>
-                    </ul>
-                </div>
-                <div class="itemWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleList('posterList', this)">poster design</span>
-                    <ul id="posterList" class="subList">
-                        <li><span class="item-year">2025</span><a href="html_work_link/leedabin.html">Exhibition Design for Joshibi Univ. Group Exhibition 《ふれる》</a></li>
-                    </ul>
-                </div>
-                <div class="itemWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleList('identityList', this)">identity design</span>
-                    <ul id="identityList" class="subList">
-                        <li><span class="item-year">2025</span><a href="html_work_link/volunteer.html">Vikki, Hongik University 2025 Winter International Volunteer Corps</a></li>
-                        <li><span class="item-year">2022</span><a href="html_work_link/yellow_punch.html">Rocket Punch 4th mini album [Yellow punch] cover</a></li>
-                    </ul>
-                </div>
-                <div class="itemWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleList('exhibitionList', this)">exhibition design</span>
-                    <ul id="exhibitionList" class="subList">
-                        <li><span class="item-year">2026</span><a href="html_work_link/leejiwon.html">Exhibition Design for Lee Jiwon's Solo Exhibition</a></li>
-                        <li><span class="item-year">2025</span><a href="html_work_link/hongik.html">Exhibition Design for Hongik Univ. Graduation Exhibition 《THE SPARE KEY》</a></li>
-                    </ul>
-                </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('bookList', this)">book</span>
+                        <ul id="bookList" class="subList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/hongik_book.html">Exhibition Book Design for Hongik Univ. Printmaking Graduation Exhibition 《THE SPARE KEY》</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/ultra.html">Ultrafine stone particles</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/seongsil.html">Sincere Score, Sincere Index</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/vikki_book.html">Archiving Book Design for Vikki, Hongik University 2025 Winter International Volunteer Corps</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/NoAccess.html">No Access to Printer</a></li>
+                            <li><span class="item-year">2024</span><a href="html_work_link/ZURY.html">ZURY</a></li>
+                            <li><span class="item-year">2024</span><a href="html_work_link/tsukuba.html">TSUKUBA!</a></li>
+                            <li><span class="item-year">2024</span><a href="html_work_link/muscle.html">Creative muscle Exercise guide</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/law.html">Within the law</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/weed.html">A normal weed guide</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('posterList', this)">poster design</span>
+                        <ul id="posterList" class="subList">
+                            <li><span class="item-year">2026</span><a href="html_work_link/bef.html">Poster Design for 《겉보기엔 조금 긴 이동》 in BeF</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/leejiwon.html">Poster Design for Lee Jiwon's Solo Exhibition</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/hureru.html">Poster, Postcard Design for Joshibi Univ. Group Exhibition 《ふれる》</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('identityList', this)">identity design</span>
+                        <ul id="identityList" class="subList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/vikki.html">Logo Design for Vikki, Hongik University 2025 Winter International Volunteer Corps</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/yellow_punch.html">Rocket Punch 4th mini album [Yellow punch] cover</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('exhibitionList', this)">exhibition design</span>
+                        <ul id="exhibitionList" class="subList">
+                            <li><span class="item-year">2026</span><a href="html_work_link/luminous.html">Exhibition Design for Lee Jiwon's Solo Exhibition</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/hongik.html">Exhibition Design for Hongik Univ. Graduation Exhibition 《THE SPARE KEY》</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('designEtcList', this)">etc</span>
+                        <ul id="designEtcList" class="subList">
+                            <li><span class="item-year">2026</span><a href="html_work_link/web_choijiwoo.html">Web Design for Jiwoo Choi</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="menuSection">
-                <div class="menuHeading">text</div>
+            <div class="menuSection" id="textSection">
+                <div class="menuHeading clickable" onclick="showTextGallery()">text</div>
                 <div class="subitemGroup">
-                <div class="yearWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleYearList('y2026', this)">2026</span>
-                    <ul id="y2026" class="yearList">
-                        <li><span class="item-year">2026</span><a href="html_text_link/to_24yo_misuk.html">24살의 미숙이에게</a></li>
-                        <li><span class="item-year">2026</span><a href="html_text_link/tomato_to_die.html">죽을 토마토</a></li>
-                    </ul>
-                </div>
-                <div class="yearWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleYearList('y2025', this)">2025</span>
-                    <ul id="y2025" class="yearList">
-                        <li><span class="item-year">2025</span><a href="html_text_link/house.html">집</a></li>
-                        <li><span class="item-year">2025</span><a href="html_text_link/blind_with_eyes_open.html">눈뜬 장님</a></li>
-                    </ul>
-                </div>
-                <div class="yearWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleYearList('y2024', this)">2024</span>
-                    <ul id="y2024" class="yearList">
-                        <li><span class="item-year">2024</span><a href="html_text_link/to_buddha.html">받는 이, 佛様</a></li>
-                        <li><span class="item-year">2024</span><a href="html_text_link/her_slip_of_tongue.html">그녀들의 말실수</a></li>
-                        <li><span class="item-year">2024</span><a href="html_text_link/orange_juice.html">오렌지주스</a></li>
-                        <li><span class="item-year">2024</span><a href="html_text_link/to_my_future_child.html">미래의 2세에게</a></li>
-                        <li><span class="item-year">2024</span><a href="html_text_link/thumb.html">엄지손가락</a></li>
-                    </ul>
-                </div>
-                <div class="yearWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleYearList('y2023', this)">2023</span>
-                    <ul id="y2023" class="yearList">
-                        <li><span class="item-year">2023</span><a href="html_text_link/black_haired_beasts.html">검은 머리 짐승들</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/independence_point.html">독립점</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/short_writings.html">짧은 글들</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/normal_family.html">정상가족</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/homeless_passing.html">노숙자가 지나갈 때</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/sunlight_allergy.html">저는 햇빛을 먹지 못합니다.</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/step_on_kafka.html">카프카를 밟아주세요.</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/hedgehog_dilemma.html">고슴도치 법칙</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/variable_invariable.html">가변은 불가변</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/tomato_to_die.html">죽을 토마토</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/iljido.html">일知도</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/house.html">집</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/blind_with_eyes_open.html">눈뜬 장님</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/tomoya.html">朋哉</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/oh_george_senpai.html">아 조지 선배!</a></li>
-                        <li><span class="item-year">2023</span><a href="html_text_link/to_24yo_misuk.html">24살의 미숙이에게</a></li>
-                    </ul>
-                </div>
-                <div class="yearWrapper">
-                    <span class="menuSubitem clickableSubitem" onclick="toggleYearList('y2022', this)">2022</span>
-                    <ul id="y2022" class="yearList">
-                        <li><span class="item-year">2022</span><a href="html_text_link/walking_into_minjae.html">걸어서 민재속으로_(그녀의 잠꼬대)</a></li>
-                    </ul>
-                </div>
+                    <div class="yearWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('y2026', this)">2026</span>
+                        <ul id="y2026" class="yearList">
+                            <li><span class="item-year">2026</span><a href="html_text_link/to_24yo_misuk.html">24살의 미숙이에게</a></li>
+                            <li><span class="item-year">2026</span><a href="html_text_link/tomato_to_die.html">죽을 토마토</a></li>
+                        </ul>
+                    </div>
+                    <div class="yearWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('y2025', this)">2025</span>
+                        <ul id="y2025" class="yearList">
+                            <li><span class="item-year">2025</span><a href="html_text_link/house.html">집</a></li>
+                            <li><span class="item-year">2025</span><a href="html_text_link/blind_with_eyes_open.html">눈뜬 장님</a></li>
+                        </ul>
+                    </div>
+                    <div class="yearWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('y2024', this)">2024</span>
+                        <ul id="y2024" class="yearList">
+                            <li><span class="item-year">2024</span><a href="html_text_link/to_buddha.html">받는 이, 佛様</a></li>
+                            <li><span class="item-year">2024</span><a href="html_text_link/her_slip_of_tongue.html">그녀들의 말실수</a></li>
+                            <li><span class="item-year">2024</span><a href="html_text_link/orange_juice.html">오렌지주스</a></li>
+                            <li><span class="item-year">2024</span><a href="html_text_link/to_my_future_child.html">미래의 2세에게</a></li>
+                            <li><span class="item-year">2024</span><a href="html_text_link/thumb.html">엄지손가락</a></li>
+                        </ul>
+                    </div>
+                    <div class="yearWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('y2023', this)">2023</span>
+                        <ul id="y2023" class="yearList">
+                            <li><span class="item-year">2023</span><a href="html_text_link/black_haired_beasts.html">검은 머리 짐승들</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/independence_point.html">독립점</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/short_writings.html">짧은 글들</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/normal_family.html">정상가족</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/homeless_passing.html">노숙자가 지나갈 때</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/sunlight_allergy.html">저는 햇빛을 먹지 못합니다.</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/step_on_kafka.html">카프카를 밟아주세요.</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/hedgehog_dilemma.html">고슴도치 법칙</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/variable_invariable.html">가변은 불가변</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/tomato_to_die.html">죽을 토마토</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/iljido.html">일知도</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/house.html">집</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/blind_with_eyes_open.html">눈뜬 장님</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/tomoya.html">朋哉</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/oh_george_senpai.html">아 조지 선배!</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/to_24yo_misuk.html">24살의 미숙이에게</a></li>
+                        </ul>
+                    </div>
+                    <div class="yearWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('y2022', this)">2022</span>
+                        <ul id="y2022" class="yearList">
+                            <li><span class="item-year">2022</span><a href="html_text_link/walking_into_minjae.html">걸어서 민재속으로_(그녀의 잠꼬대)</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="menuSection contactSection">
-                <div class="menuHeading clickable" onclick="toggleContactInfo()">contact</div>
+            <div class="menuSection contactSection" id="contactSectionMenu">
+                <div class="menuHeading" onclick="toggleContactInfo()">contact</div>
                 <div id="contactInfo" class="menuSubitem">
                     ⛳︎ seoul & tokyo<br>
                     ☕︎ instagram.<br><a href="https://www.instagram.com/zeonayun/" target="_blank" rel="noopener">@zeonyun</a><br>
@@ -571,8 +208,11 @@
                 </div>
             </div>
         </div>
+        <div id="artGallery"></div>
+        <div id="designGallery"></div>
+        <div id="textGallery"></div>
         <div id="menuOverlay">
-            <button class="closeMenu" onclick="hideMenuBar()">close</button>
+            <button class="closeMenu" onclick="document.getElementById('menuOverlay').classList.remove('show')">close</button>
             <div id="menuContent">
                 <a href="./html/works.html" class="menuLink">works</a><br>
                 <a href="./html/texts.html" class="menuLink">texts</a><br>
@@ -581,171 +221,7 @@
         </div>
     </div>
 
-        
-     <script>   
-     
-        var imgArray= new Array();
-        imgArray[0]="images_for_tenzi/1.png";  //사진
-        imgArray[1]="images_for_tenzi/2-2.png"; //사진
-        imgArray[2]="images_for_tenzi/2-3.png";  //사진
-        imgArray[3]="images_for_tenzi/2-4.png"; //사진
- 
-        function showImage() {
-    const imgNum = Math.floor(Math.random() * imgArray.length);
-    document.getElementById("introImg").src = imgArray[imgNum];
-    renderLetters();
-  }
-
-  function renderLetters() {
-    const letters = ['a', 'h', 'y', 'u', 'n'];
-    const overlay = document.getElementById('letterOverlay');
-    overlay.innerHTML = '';
-    
-    // 가운데에 일렬로 배치 (고정 위치, 중앙 정렬)
-    const positions = [
-      { x: 35, y: 50 },    // a
-      { x: 43, y: 50 },    // h
-      { x: 51, y: 50 },    // y
-      { x: 59, y: 50 },    // u
-      { x: 67, y: 50 }     // n
-    ];
-
-    overlay.classList.remove('hoverAll');
-
-    if (!overlay.dataset.hoverHandler) {
-      overlay.addEventListener('mouseenter', function(event) {
-        if (event.target.tagName === 'SPAN') {
-          overlay.classList.add('hoverAll');
-        }
-      }, true);
-
-      overlay.addEventListener('mouseleave', function() {
-        overlay.classList.remove('hoverAll');
-      }, true);
-
-      overlay.dataset.hoverHandler = '1';
-    }
-
-    const widths = ['6rem', '5.4rem', '5rem', '6.2rem', '5.8rem'];
-    const heights = ['8rem', '7.5rem', '8.5rem', '7rem', '8rem'];
-    const borderRadiuses = [
-      '40% 45% 55% 60% / 50% 45% 55% 50%',
-      '35% 50% 55% 60% / 55% 45% 55% 45%',
-      '45% 40% 60% 55% / 50% 55% 45% 50%',
-      '40% 50% 50% 60% / 55% 50% 45% 50%',
-      '45% 50% 55% 50% / 50% 55% 45% 50%'
-    ];
-    const rotations = ['0deg', '-10deg', '6deg', '0deg', '8deg'];
-
-    for (let i = 0; i < letters.length; i++) {
-      const span = document.createElement('span');
-      const letter = letters[i];
-      const size = 14; // px 단위
-
-      const pos = positions[i];
-
-      span.textContent = letter;
-      span.style.fontSize = size + 'px';
-      span.style.left = pos.x + 'vw';
-      span.style.top = pos.y + 'vh';
-      span.style.transform = `translate(-50%, -50%) rotate(${rotations[i]})`;
-      span.style.opacity = 1;
-      span.addEventListener('click', showTopMenu);
-
-      // 길쭉하면서 불규칙한 배경 추가
-      span.style.borderRadius = borderRadiuses[i];
-      span.style.width = widths[i];
-      span.style.height = heights[i];
-      span.style.lineHeight = 'normal';
-      span.style.padding = '0';
-      span.style.margin = '0';
-      span.style.boxSizing = 'border-box';
-      span.style.border = '2px solid #333';
-      span.style.display = 'flex';
-      span.style.justifyContent = 'center';
-      span.style.alignItems = 'center';
-      span.style.textAlign = 'center';
-      span.style.fontFamily = "'Helvetica Neue', Helvetica, Arial, sans-serif";
-      span.style.backgroundColor = 'white';
-      span.style.color = 'black';
-
-      overlay.appendChild(span);
-    }
-  }
-
-  function showMenuBar() {
-    const menu = document.getElementById('menuOverlay');
-    if (menu) {
-      menu.classList.add('show');
-    }
-  }
-
-  function showTopMenu() {
-    const topMenu = document.getElementById('topMenuBar');
-    const overlay = document.getElementById('letterOverlay');
-    const img = document.getElementById('introImg');
-
-    const currentSrc = img.getAttribute('src');
-    img.src = currentSrc.replace(/\.(png|jpg)$/, '_.jpg');
-
-    topMenu.classList.add('visible');
-    overlay.style.display = 'none';
-  }
-
-  function toggleContactInfo() {
-        const contactSection = document.querySelector('.contactSection');
-        if (!contactSection) return;
-        contactSection.classList.toggle('open');
-  }
-
-  function closeAllSubmenus() {
-        document.querySelectorAll('.yearList, .subList, #printmakingList').forEach(l => l.classList.remove('open'));
-        document.querySelectorAll('.clickableSubitem').forEach(b => b.classList.remove('active'));
-  }
-
-  function toggleList(id, btn) {
-        const target = document.getElementById(id);
-        if (!target) return;
-        const isOpen = target.classList.contains('open');
-        closeAllSubmenus();
-        if (!isOpen) {
-            target.classList.add('open');
-            btn.classList.add('active');
-        }
-  }
-
-  function togglePrintmakingList(btn) {
-        const list = document.getElementById('printmakingList');
-        if (!list) return;
-        const isOpen = list.classList.contains('open');
-        closeAllSubmenus();
-        if (!isOpen) {
-            list.classList.add('open');
-            btn.classList.add('active');
-        }
-  }
-
-  function toggleYearList(id, btn) {
-        const target = document.getElementById(id);
-        if (!target) return;
-        const isOpen = target.classList.contains('open');
-        closeAllSubmenus();
-        if (!isOpen) {
-            target.classList.add('open');
-            btn.classList.add('active');
-        }
-  }
-
-  function hideMenuBar() {
-    const menu = document.getElementById('menuOverlay');
-    menu.classList.remove('show');
-  }
-        
-    </script>
+    <div id="copyright">© Jeon Ahyun</div>
+    <script src="index.js"></script>
 </body>
 </html>
-
-
-
-
-
