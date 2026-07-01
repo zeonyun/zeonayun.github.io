@@ -325,7 +325,7 @@ html, body {
 }
 
 /* Galleries */
-#artGallery, #designGallery, #textGallery {
+#artGallery, #designGallery, #textGallery, #contactGallery {
     display: none;
     position: fixed;
     top: 0;
@@ -341,9 +341,24 @@ html, body {
     box-sizing: border-box;
 }
 
-#artGallery.visible, #designGallery.visible, #textGallery.visible {
+#artGallery.visible, #designGallery.visible, #textGallery.visible, #contactGallery.visible {
     display: block;
     animation: galleryFadeIn 0.18s ease;
+}
+
+#contactGallery .contactGalleryContent {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 2;
+}
+
+#contactGallery .contactGalleryContent a {
+    color: black;
+    text-decoration: none;
+}
+
+#contactGallery .contactGalleryContent a:hover {
+    text-decoration: underline;
 }
 
 @keyframes galleryFadeIn {
@@ -545,7 +560,7 @@ html, body {
     }
 
     /* 갤러리: 좌우/하단 패딩만 설정, padding-top은 JS로 동적 계산 */
-    #artGallery, #designGallery, #textGallery {
+    #artGallery, #designGallery, #textGallery, #contactGallery {
         padding-left: 1.2rem;
         padding-right: 1.2rem;
         padding-bottom: 5rem;

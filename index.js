@@ -226,8 +226,9 @@ function resetToMenuState() {
 }
 
 function hideAllGalleriesAndSubmenus() {
-    ['artGallery', 'designGallery', 'textGallery'].forEach(id => {
-        document.getElementById(id).classList.remove('visible');
+    ['artGallery', 'designGallery', 'textGallery', 'contactGallery'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('visible');
     });
     document.querySelectorAll('.menuSection .subitemGroup').forEach(el => {
         el.classList.add('collapsed');
@@ -248,29 +249,29 @@ function updateGalleryPadding() {
     groups.forEach(function(g) { g.style.transition = 'none'; g.style.maxHeight = '0'; });
     const h = menu.offsetHeight;
     groups.forEach(function(g) { g.style.transition = ''; g.style.maxHeight = ''; });
-    ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
+    ['artGallery', 'designGallery', 'textGallery', 'contactGallery'].forEach(function(id) {
         const g = document.getElementById(id);
         if (g) { g.style.transition = 'none'; g.style.paddingTop = h + 'px'; }
     });
 }
 
+const GALLERY_IDS = ['artGallery', 'designGallery', 'textGallery', 'contactGallery'];
+
 // 모바일 서브메뉴 토글 + 갤러리 padding-top CSS 트랜지션 동기화
-// classList 변경 직후 offsetHeight를 읽으면 CSS cascade 최종값으로 layout이 계산되므로
-// 목표 높이를 정확히 알 수 있고, 갤러리에 transition을 걸어 CSS가 애니메이션하게 한다
 function syncSubmenuToggle(sectionId) {
     const menu = document.getElementById('topMenuBar');
     const submenu = document.querySelector('#' + sectionId + ' .subitemGroup');
     if (!submenu) return;
     submenu.classList.toggle('collapsed');
-    const targetH = menu.offsetHeight; // 강제 reflow → cascade 최종값 반영
-    ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
+    const targetH = menu.offsetHeight;
+    GALLERY_IDS.forEach(function(id) {
         const g = document.getElementById(id);
         if (!g) return;
         g.style.transition = 'padding-top 0.4s ease';
         g.style.paddingTop = targetH + 'px';
     });
     setTimeout(function() {
-        ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
+        GALLERY_IDS.forEach(function(id) {
             const g = document.getElementById(id);
             if (g) g.style.transition = '';
         });
@@ -389,28 +390,21 @@ function populateTextGallery() {
 }
 
 function toggleContactInfo() {
-    const contactSection = document.querySelector('.contactSection');
-    if (!contactSection) return;
-    contactSection.classList.toggle('open');
-    // 모바일: contact 열릴 때 갤러리 padding-top을 메뉴 높이에 맞게 동기화
-    if (window.innerWidth <= 768) {
-        const menu = document.getElementById('topMenuBar');
-        if (menu && menu.classList.contains('visible')) {
-            const targetH = menu.offsetHeight;
-            ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
-                const g = document.getElementById(id);
-                if (!g) return;
-                g.style.transition = 'padding-top 0.3s ease';
-                g.style.paddingTop = targetH + 'px';
-            });
-            setTimeout(function() {
-                ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
-                    const g = document.getElementById(id);
-                    if (g) g.style.transition = '';
-                });
-            }, 350);
-        }
+    const gallery = document.getElementById('contactGallery');
+    if (gallery.classList.contains('visible')) {
+        hideAllGalleriesAndSubmenus();
+        return;
     }
+    hideAllGalleriesAndSubmenus();
+    if (!gallery.dataset.populated) {
+        const src = document.getElementById('contactInfo');
+        gallery.innerHTML = '<div class="contactGalleryContent">' + src.innerHTML + '</div>';
+        gallery.dataset.populated = '1';
+    }
+    gallery.scrollTop = 0;
+    gallery.classList.add('visible');
+    lockBodyScroll();
+    updateGalleryPadding();
 }
 
 function closeAllSubmenus() {
