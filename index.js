@@ -66,7 +66,7 @@ const designWorks = [
     { href: "html_work_link/seongsil.html",    img: "works_images/seongsil1.jpg",     desc: "성실한 스코어 성실한 인덱스, 2025",                                     cat: "book" },
     { href: "html_work_link/vikki_book.html", img: "works_images/viiki1.png",         desc: "Archiving Book Design for Vikki, Hongik University 2025 Winter International Volunteer Corps", cat: "book" },
     { href: "html_work_link/NoAccess.html",    img: "works_images/NoAccess0-1.jpg",   desc: "No Access to Printer, 2025",                                            cat: "book" },
-    { href: "html_work_link/ZURY.html",        img: "works_images/zury1.png",         desc: "ズURY, 2024",                                                           cat: "book" },
+    { href: "html_work_link/ZURY.html",        img: "works_images/ZURY1.png",         desc: "ズURY, 2024",                                                           cat: "book" },
     { href: "html_work_link/tsukuba.html",     img: "works_images/TSUKUBA3.jpg",      desc: "TSUKUBA!, 2024",                                                        cat: "book" },
     { href: "html_work_link/muscle.html",      img: "works_images/muscle1.png",       desc: "Creative muscle Exercise guide, 2024",                                  cat: "book" },
     { href: "html_work_link/law.html",         img: "works_images/law0.jpg",          desc: "Within the law, 2023",                                                  cat: "book" },
