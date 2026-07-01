@@ -238,31 +238,38 @@ function hideAllGalleriesAndSubmenus() {
     document.body.style.width = '';
 }
 
-// 갤러리 padding-top을 메뉴 높이에 즉시 맞춤 (리사이즈 등 단발성 사용)
+// 갤러리 padding-top을 메뉴 높이에 즉시 맞춤 (transition 없이)
 function updateGalleryPadding() {
     const menu = document.getElementById('topMenuBar');
     if (!menu.classList.contains('visible')) return;
     const h = menu.offsetHeight;
     ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
         const g = document.getElementById(id);
-        if (g) g.style.paddingTop = h + 'px';
+        if (g) { g.style.transition = 'none'; g.style.paddingTop = h + 'px'; }
     });
 }
 
-// 서브메뉴 열림/닫힘 트랜지션(0.4s) 동안 매 프레임 갤러리 padding-top을 메뉴 높이에 동기화
-function animateGalleryPadding() {
+// 모바일 서브메뉴 토글 + 갤러리 padding-top CSS 트랜지션 동기화
+// classList 변경 직후 offsetHeight를 읽으면 CSS cascade 최종값으로 layout이 계산되므로
+// 목표 높이를 정확히 알 수 있고, 갤러리에 transition을 걸어 CSS가 애니메이션하게 한다
+function syncSubmenuToggle(sectionId) {
     const menu = document.getElementById('topMenuBar');
-    const start = Date.now();
-    function step() {
-        if (!menu.classList.contains('visible')) return;
-        const h = menu.offsetHeight;
+    const submenu = document.querySelector('#' + sectionId + ' .subitemGroup');
+    if (!submenu) return;
+    submenu.classList.toggle('collapsed');
+    const targetH = menu.offsetHeight; // 강제 reflow → cascade 최종값 반영
+    ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
+        const g = document.getElementById(id);
+        if (!g) return;
+        g.style.transition = 'padding-top 0.4s ease';
+        g.style.paddingTop = targetH + 'px';
+    });
+    setTimeout(function() {
         ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
             const g = document.getElementById(id);
-            if (g) g.style.paddingTop = h + 'px';
+            if (g) g.style.transition = '';
         });
-        if (Date.now() - start < 450) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+    }, 450);
 }
 
 // 갤러리가 열릴 때 body 스크롤 차단 (iOS fixed 버그 방지)
@@ -277,8 +284,7 @@ function showArtGallery() {
     const gallery = document.getElementById('artGallery');
     if (gallery.classList.contains('visible')) {
         if (window.innerWidth <= 768) {
-            document.querySelector('#artSection .subitemGroup').classList.toggle('collapsed');
-            animateGalleryPadding();
+            syncSubmenuToggle('artSection');
         } else {
             gallery.scrollTop = 0;
         }
@@ -292,7 +298,7 @@ function showArtGallery() {
     gallery.scrollTop = 0;
     gallery.classList.add('visible');
     lockBodyScroll();
-    animateGalleryPadding();
+    updateGalleryPadding();
 }
 
 // --- Design gallery ---
@@ -300,8 +306,7 @@ function showDesignGallery() {
     const gallery = document.getElementById('designGallery');
     if (gallery.classList.contains('visible')) {
         if (window.innerWidth <= 768) {
-            document.querySelector('#designSection .subitemGroup').classList.toggle('collapsed');
-            animateGalleryPadding();
+            syncSubmenuToggle('designSection');
         } else {
             gallery.scrollTop = 0;
         }
@@ -315,7 +320,7 @@ function showDesignGallery() {
     gallery.scrollTop = 0;
     gallery.classList.add('visible');
     lockBodyScroll();
-    animateGalleryPadding();
+    updateGalleryPadding();
 }
 
 // --- Text gallery ---
@@ -323,8 +328,7 @@ function showTextGallery() {
     const gallery = document.getElementById('textGallery');
     if (gallery.classList.contains('visible')) {
         if (window.innerWidth <= 768) {
-            document.querySelector('#textSection .subitemGroup').classList.toggle('collapsed');
-            animateGalleryPadding();
+            syncSubmenuToggle('textSection');
         } else {
             gallery.scrollTop = 0;
         }
@@ -338,7 +342,7 @@ function showTextGallery() {
     gallery.scrollTop = 0;
     gallery.classList.add('visible');
     lockBodyScroll();
-    animateGalleryPadding();
+    updateGalleryPadding();
 }
 
 // 이미지 갤러리 공통 생성 함수 (art, design 공용)

@@ -343,6 +343,12 @@ html, body {
 
 #artGallery.visible, #designGallery.visible, #textGallery.visible {
     display: block;
+    animation: galleryFadeIn 0.18s ease;
+}
+
+@keyframes galleryFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 .galleryGrid {
