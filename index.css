@@ -335,6 +335,7 @@ html, body {
     background: white;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
     z-index: 30;
     padding: 6rem 3rem 5rem;
     box-sizing: border-box;
@@ -574,5 +575,30 @@ html, body {
 
     .galleryThumb {
         cursor: pointer;
+    }
+
+    /* text / contact 위 구분선 (2행 시작) */
+    #textSection,
+    #contactSectionMenu {
+        border-top: 1px solid black;
+        padding-top: 0.5rem;
+        margin-top: 0.2rem;
+    }
+
+    /* contact: position:absolute 대신 normal flow로 표시 */
+    #contactInfo {
+        position: static;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s, max-height 0.3s ease;
+        padding: 0;
+        white-space: normal;
+    }
+    .contactSection.open #contactInfo {
+        opacity: 1;
+        max-height: 200px;
+        pointer-events: auto;
     }
 }

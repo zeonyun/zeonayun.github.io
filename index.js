@@ -220,6 +220,9 @@ function resetToMenuState() {
         el.classList.remove('collapsed');
     });
     closeAllSubmenus();
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
 }
 
 function hideAllGalleriesAndSubmenus() {
@@ -230,17 +233,42 @@ function hideAllGalleriesAndSubmenus() {
         el.classList.add('collapsed');
     });
     closeAllSubmenus();
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
 }
 
-// 갤러리 padding-top을 실제 메뉴 높이에 맞춰 조정 (모바일/좁은 화면)
+// 갤러리 padding-top을 실제 메뉴 높이에 맞춰 조정
+// subitemGroup collapse 트랜지션 중에 측정하면 높이가 부풀어오르므로
+// 서브메뉴를 순간 숨긴 뒤 측정하고 복원한다
 function updateGalleryPadding() {
     const menu = document.getElementById('topMenuBar');
     if (!menu.classList.contains('visible')) return;
+    const groups = menu.querySelectorAll('.subitemGroup');
+    groups.forEach(function(g) {
+        g.style.transition = 'none';
+        g.style.maxHeight = g.classList.contains('collapsed') ? '0' : '';
+        g.style.overflow = g.classList.contains('collapsed') ? 'hidden' : '';
+    });
     const h = menu.offsetHeight;
+    requestAnimationFrame(function() {
+        groups.forEach(function(g) {
+            g.style.transition = '';
+            g.style.maxHeight = '';
+            g.style.overflow = '';
+        });
+    });
     ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
         const g = document.getElementById(id);
         if (g) g.style.paddingTop = h + 'px';
     });
+}
+
+// 갤러리가 열릴 때 body 스크롤 차단 (iOS fixed 버그 방지)
+function lockBodyScroll() {
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
 }
 
 // --- Art gallery ---
@@ -248,7 +276,6 @@ function showArtGallery() {
     const gallery = document.getElementById('artGallery');
     if (gallery.classList.contains('visible')) {
         if (window.innerWidth <= 768) {
-            // 모바일: 재탭 시 서브메뉴 토글
             document.querySelector('#artSection .subitemGroup').classList.toggle('collapsed');
         } else {
             gallery.scrollTop = 0;
@@ -260,7 +287,9 @@ function showArtGallery() {
         populateImageGallery('artGallery', artWorks, ['printmaking', 'artist book', 'painting', 'media-art', 'etc']);
         gallery.dataset.populated = '1';
     }
+    gallery.scrollTop = 0;
     gallery.classList.add('visible');
+    lockBodyScroll();
     updateGalleryPadding();
 }
 
@@ -280,7 +309,9 @@ function showDesignGallery() {
         populateImageGallery('designGallery', designWorks, ['book', 'poster design', 'identity design', 'exhibition design', 'etc']);
         gallery.dataset.populated = '1';
     }
+    gallery.scrollTop = 0;
     gallery.classList.add('visible');
+    lockBodyScroll();
     updateGalleryPadding();
 }
 
@@ -300,7 +331,9 @@ function showTextGallery() {
         populateTextGallery();
         gallery.dataset.populated = '1';
     }
+    gallery.scrollTop = 0;
     gallery.classList.add('visible');
+    lockBodyScroll();
     updateGalleryPadding();
 }
 
