@@ -223,6 +223,7 @@ function resetToMenuState() {
     document.body.style.overflow = '';
     document.body.style.position = '';
     document.body.style.width = '';
+    document.getElementById('topMenuBar').classList.remove('gallery-open');
 }
 
 function hideAllGalleriesAndSubmenus() {
@@ -237,6 +238,7 @@ function hideAllGalleriesAndSubmenus() {
     document.body.style.overflow = '';
     document.body.style.position = '';
     document.body.style.width = '';
+    document.getElementById('topMenuBar').classList.remove('gallery-open');
 }
 
 // 갤러리 padding-top을 메뉴 높이에 즉시 맞춤 (transition 없이)
@@ -282,6 +284,7 @@ function lockBodyScroll() {
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.width = '100%';
+    document.getElementById('topMenuBar').classList.add('gallery-open');
 }
 
 // --- Art gallery ---
