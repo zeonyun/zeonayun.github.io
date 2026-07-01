@@ -327,11 +327,7 @@ function showDesignGallery() {
 function showTextGallery() {
     const gallery = document.getElementById('textGallery');
     if (gallery.classList.contains('visible')) {
-        if (window.innerWidth <= 768) {
-            syncSubmenuToggle('textSection');
-        } else {
-            gallery.scrollTop = 0;
-        }
+        gallery.scrollTop = 0;
         return;
     }
     hideAllGalleriesAndSubmenus();
@@ -391,6 +387,25 @@ function toggleContactInfo() {
     const contactSection = document.querySelector('.contactSection');
     if (!contactSection) return;
     contactSection.classList.toggle('open');
+    // 모바일: contact 열릴 때 갤러리 padding-top을 메뉴 높이에 맞게 동기화
+    if (window.innerWidth <= 768) {
+        const menu = document.getElementById('topMenuBar');
+        if (menu && menu.classList.contains('visible')) {
+            const targetH = menu.offsetHeight;
+            ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
+                const g = document.getElementById(id);
+                if (!g) return;
+                g.style.transition = 'padding-top 0.3s ease';
+                g.style.paddingTop = targetH + 'px';
+            });
+            setTimeout(function() {
+                ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
+                    const g = document.getElementById(id);
+                    if (g) g.style.transition = '';
+                });
+            }, 350);
+        }
+    }
 }
 
 function closeAllSubmenus() {
