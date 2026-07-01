@@ -15,26 +15,9 @@
     <p class="important2">Trial print of xxビラ(2), 2022<br>
         aquatint, intaglio, softground, 60*32cm</p>
     <img src="../works_images/xxbira2.png" width="450">
-        <!-- 각 details에 id 추가 -->
+        
 
         <a href="../html/works.html" id="back-top">back</a>
-
-        <script>
-            function saveState() {
-                const worksDetailOpen = document.getElementById('worksDetail').open;
-                const state = { mapDetailOpen, worksDetailOpen };
-                history.replaceState(state, '');
-            }
-    
-            function loadState() {
-                const state = history.state;
-                if (state) {
-                    document.getElementById('worksDetail').open = state.worksDetailOpen;
-                }
-            }
-    
-            window.addEventListener('DOMContentLoaded', loadState);
-        </script>
         <script>
             document.getElementById('back-top').addEventListener('click', function (e) {
               e.preventDefault();

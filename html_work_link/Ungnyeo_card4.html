@@ -15,25 +15,8 @@
     <p class="important2">Ungnyeo card(4), 2022<br>
         aquatint, intaglio, softground, 15.2*10.2cm</p>
     <img src="../works_images/Ungnyeo_card4.png" width="350">
-         <!-- 각 details에 id 추가 -->
+         
          <a href="../html/works.html" id="back-top">back</a>
-
-         <script>
-             function saveState() {
-                 const worksDetailOpen = document.getElementById('worksDetail').open;
-                 const state = { mapDetailOpen, worksDetailOpen };
-                 history.replaceState(state, '');
-             }
-     
-             function loadState() {
-                 const state = history.state;
-                 if (state) {
-                     document.getElementById('worksDetail').open = state.worksDetailOpen;
-                 }
-             }
-     
-             window.addEventListener('DOMContentLoaded', loadState);
-         </script>
          <script>
              document.getElementById('back-top').addEventListener('click', function (e) {
                e.preventDefault();

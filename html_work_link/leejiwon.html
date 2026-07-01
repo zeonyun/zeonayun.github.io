@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <p class="important2" span class="highlight">Poster Design for Lee Jiwon's Solo Exhibition,<br>
+    <p class="important2">Poster Design for Lee Jiwon's Solo Exhibition,<br>
         《Luminous Void, Moments of Fulfillment》</p>
     <img src="../works_images/jiwon1.png" width="500"><br>
     <img src="../works_images/jiwon2.png" width="500"><br>
@@ -22,25 +22,8 @@
 
 
 
-    <!-- 각 details에 id 추가 -->
+    
     <a href="../html/works.html" id="back-top">back</a>
-
-    <script>
-        function saveState() {
-            const worksDetailOpen = document.getElementById('worksDetail').open;
-            const state = { mapDetailOpen, worksDetailOpen };
-            history.replaceState(state, '');
-        }
-
-        function loadState() {
-            const state = history.state;
-            if (state) {
-                document.getElementById('worksDetail').open = state.worksDetailOpen;
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', loadState);
-    </script>
     <script>
         document.getElementById('back-top').addEventListener('click', function (e) {
           e.preventDefault();
