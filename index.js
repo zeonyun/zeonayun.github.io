@@ -238,30 +238,31 @@ function hideAllGalleriesAndSubmenus() {
     document.body.style.width = '';
 }
 
-// 갤러리 padding-top을 실제 메뉴 높이에 맞춰 조정
-// subitemGroup collapse 트랜지션 중에 측정하면 높이가 부풀어오르므로
-// 서브메뉴를 순간 숨긴 뒤 측정하고 복원한다
+// 갤러리 padding-top을 메뉴 높이에 즉시 맞춤 (리사이즈 등 단발성 사용)
 function updateGalleryPadding() {
     const menu = document.getElementById('topMenuBar');
     if (!menu.classList.contains('visible')) return;
-    const groups = menu.querySelectorAll('.subitemGroup');
-    groups.forEach(function(g) {
-        g.style.transition = 'none';
-        g.style.maxHeight = g.classList.contains('collapsed') ? '0' : '';
-        g.style.overflow = g.classList.contains('collapsed') ? 'hidden' : '';
-    });
     const h = menu.offsetHeight;
-    requestAnimationFrame(function() {
-        groups.forEach(function(g) {
-            g.style.transition = '';
-            g.style.maxHeight = '';
-            g.style.overflow = '';
-        });
-    });
     ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
         const g = document.getElementById(id);
         if (g) g.style.paddingTop = h + 'px';
     });
+}
+
+// 서브메뉴 열림/닫힘 트랜지션(0.4s) 동안 매 프레임 갤러리 padding-top을 메뉴 높이에 동기화
+function animateGalleryPadding() {
+    const menu = document.getElementById('topMenuBar');
+    const start = Date.now();
+    function step() {
+        if (!menu.classList.contains('visible')) return;
+        const h = menu.offsetHeight;
+        ['artGallery', 'designGallery', 'textGallery'].forEach(function(id) {
+            const g = document.getElementById(id);
+            if (g) g.style.paddingTop = h + 'px';
+        });
+        if (Date.now() - start < 450) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
 }
 
 // 갤러리가 열릴 때 body 스크롤 차단 (iOS fixed 버그 방지)
@@ -277,6 +278,7 @@ function showArtGallery() {
     if (gallery.classList.contains('visible')) {
         if (window.innerWidth <= 768) {
             document.querySelector('#artSection .subitemGroup').classList.toggle('collapsed');
+            animateGalleryPadding();
         } else {
             gallery.scrollTop = 0;
         }
@@ -290,7 +292,7 @@ function showArtGallery() {
     gallery.scrollTop = 0;
     gallery.classList.add('visible');
     lockBodyScroll();
-    updateGalleryPadding();
+    animateGalleryPadding();
 }
 
 // --- Design gallery ---
@@ -299,6 +301,7 @@ function showDesignGallery() {
     if (gallery.classList.contains('visible')) {
         if (window.innerWidth <= 768) {
             document.querySelector('#designSection .subitemGroup').classList.toggle('collapsed');
+            animateGalleryPadding();
         } else {
             gallery.scrollTop = 0;
         }
@@ -312,7 +315,7 @@ function showDesignGallery() {
     gallery.scrollTop = 0;
     gallery.classList.add('visible');
     lockBodyScroll();
-    updateGalleryPadding();
+    animateGalleryPadding();
 }
 
 // --- Text gallery ---
@@ -321,6 +324,7 @@ function showTextGallery() {
     if (gallery.classList.contains('visible')) {
         if (window.innerWidth <= 768) {
             document.querySelector('#textSection .subitemGroup').classList.toggle('collapsed');
+            animateGalleryPadding();
         } else {
             gallery.scrollTop = 0;
         }
@@ -334,7 +338,7 @@ function showTextGallery() {
     gallery.scrollTop = 0;
     gallery.classList.add('visible');
     lockBodyScroll();
-    updateGalleryPadding();
+    animateGalleryPadding();
 }
 
 // 이미지 갤러리 공통 생성 함수 (art, design 공용)
