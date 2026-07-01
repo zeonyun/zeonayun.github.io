@@ -245,8 +245,17 @@ function updateGalleryPadding() {
 
 // --- Art gallery ---
 function showArtGallery() {
-    hideAllGalleriesAndSubmenus();
     const gallery = document.getElementById('artGallery');
+    if (gallery.classList.contains('visible')) {
+        if (window.innerWidth <= 768) {
+            // 모바일: 재탭 시 서브메뉴 토글
+            document.querySelector('#artSection .subitemGroup').classList.toggle('collapsed');
+        } else {
+            gallery.scrollTop = 0;
+        }
+        return;
+    }
+    hideAllGalleriesAndSubmenus();
     if (!gallery.dataset.populated) {
         populateImageGallery('artGallery', artWorks, ['printmaking', 'artist book', 'painting', 'media-art', 'etc']);
         gallery.dataset.populated = '1';
@@ -257,8 +266,16 @@ function showArtGallery() {
 
 // --- Design gallery ---
 function showDesignGallery() {
-    hideAllGalleriesAndSubmenus();
     const gallery = document.getElementById('designGallery');
+    if (gallery.classList.contains('visible')) {
+        if (window.innerWidth <= 768) {
+            document.querySelector('#designSection .subitemGroup').classList.toggle('collapsed');
+        } else {
+            gallery.scrollTop = 0;
+        }
+        return;
+    }
+    hideAllGalleriesAndSubmenus();
     if (!gallery.dataset.populated) {
         populateImageGallery('designGallery', designWorks, ['book', 'poster design', 'identity design', 'exhibition design', 'etc']);
         gallery.dataset.populated = '1';
@@ -269,8 +286,16 @@ function showDesignGallery() {
 
 // --- Text gallery ---
 function showTextGallery() {
-    hideAllGalleriesAndSubmenus();
     const gallery = document.getElementById('textGallery');
+    if (gallery.classList.contains('visible')) {
+        if (window.innerWidth <= 768) {
+            document.querySelector('#textSection .subitemGroup').classList.toggle('collapsed');
+        } else {
+            gallery.scrollTop = 0;
+        }
+        return;
+    }
+    hideAllGalleriesAndSubmenus();
     if (!gallery.dataset.populated) {
         populateTextGallery();
         gallery.dataset.populated = '1';

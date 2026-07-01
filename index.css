@@ -159,11 +159,13 @@ html, body {
     overflow: hidden;
 }
 
-/* 갤러리 열려있을 때 해당 섹션에 커서 올리면 목차 슬라이드 다운 */
-#artSection:hover .subitemGroup.collapsed,
-#designSection:hover .subitemGroup.collapsed,
-#textSection:hover .subitemGroup.collapsed {
-    max-height: 2000px;
+/* 갤러리 열려있을 때 해당 섹션에 커서 올리면 목차 슬라이드 다운 (마우스만, 터치 제외) */
+@media (hover: hover) and (pointer: fine) {
+    #artSection:hover .subitemGroup.collapsed,
+    #designSection:hover .subitemGroup.collapsed,
+    #textSection:hover .subitemGroup.collapsed {
+        max-height: 2000px;
+    }
 }
 
 .menuSubitem.hidden {
@@ -530,8 +532,9 @@ html, body {
     .menuSection {
         width: auto;
         min-width: 0;
-        max-height: none;
-        overflow-y: visible;
+        max-height: 55vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     /* 갤러리: 좌우/하단 패딩만 설정, padding-top은 JS로 동적 계산 */
