@@ -606,20 +606,8 @@ html, body {
         margin-top: 0.2rem;
     }
 
-    /* contact: position:absolute 대신 normal flow로 표시 */
+    /* 모바일에서 contact 정보는 contactGallery가 담당 → 메뉴 내 #contactInfo 완전히 숨김 */
     #contactInfo {
-        position: static;
-        opacity: 0;
-        max-height: 0;
-        overflow: hidden;
-        pointer-events: none;
-        transition: opacity 0.2s, max-height 0.3s ease;
-        padding: 0;
-        white-space: normal;
-    }
-    .contactSection.open #contactInfo {
-        opacity: 1;
-        max-height: 200px;
-        pointer-events: auto;
+        display: none;
     }
 }
