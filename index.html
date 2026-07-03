@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images_for_tenzi/rock.png">
+    <title>ahyun</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body onload="showImage()">
+    <div id="canvasContainer">
+        <div id="imageContainer" class="fullscreen-image">
+            <img id="introImg" alt="randomImage"/>
+        </div>
+        <div id="letterOverlay"></div>
+        <div id="topMenuBar">
+            <span class="brand" onclick="resetToMenuState()">ahyun</span>
+            <div class="menuSection" id="artSection">
+                <div class="menuHeading clickable" onclick="showArtGallery()">art</div>
+                <div class="subitemGroup">
+                    <div class="printmakingWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('printmakingList', this)">printmaking</span>
+                        <ul id="printmakingList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/activerocks.html">Active Rocks</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/sisyphus.html">Sisyphus' Light Ascent</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/Gongjungseokcho.html">공중석초</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/orchid.html">Orchid Field</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/ToPrinter.html">To. Printer</a></li>                            
+                            <li><span class="item-year">2023</span><a href="html_work_link/illgwang.html">일광欲</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/cant_eat_sunlight.html">I can't eat sunlight</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/hyo.html">孝</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/atozuki.html">跡継ぎ</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/nan.html">Nan</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/venus.html">Venus</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/goku1.html">獄(1)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/hyeokgeose_house.html">Hyeokgeose's house</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/hyeokgeose1.html">Hyeokgeose(1-2)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/hyeokgeose_card1.html">Hyeokgeose card(1-5)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/Ungnyeo(1).html">Ungnyeo(1-2)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/Ungnyeo_house2.html">Ungnyeo's house</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/Ungnyeo_card1.html">Ungnyeo card(1-4)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/eating_house.html">Eating house challenge</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/daughter.html">Daughter</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/dokkyo1,2.html">独居(1-4)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/silly_bear1,2,3.html">Silly Bear(1-9)</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/Ungnyeo.html">Ungnyeo</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/mung2.html">Mung(2)</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/mung1.html">Mung(1)</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/perfect_daughter.html">Perfect daughter</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/untitled.html">Untitled</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/xxapato.html">xxアパート</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('artistBookList', this)">artist book</span>
+                        <ul id="artistBookList" class="subList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/ultra.html">초미세 돌덩이</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/seongsil.html">성실한 스코어 성실한 인덱스</a></li>
+                            <li><span class="item-year">2024</span><a href="html_work_link/muscle.html">Creative muscle Exercise guide</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/law.html">Within the law</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/weed.html">A normal weed guide</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('paintingList', this)">painting</span>
+                        <ul id="paintingList" class="subList">
+                            <li><span class="item-year">2023</span><a href="html_work_link/independent_point.html">An independent point Series</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/kafka.html">Untitled</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/mung3.html">Mung(3)</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/drawing0.html">Drawing(1-14)</a></li>
+                            <li><span class="item-year">2021</span><a href="html_work_link/Odds and Ends8.html">Odds and Ends Series</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('mediaArtList', this)">media-art</span>
+                        <ul id="mediaArtList" class="subList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/exemplary_posture.html">An Exemplary Posture for Moving Stones</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/push_lightly.html">Push Lightly</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/drunker2.html">Drunker, ich muss dich lassen (COEX)</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/drunker1.html">Drunker, ich muss dich lassen (Gallery 17717)</a></li>
+                            <li><span class="item-year">2024</span><a href="html_work_link/game_for_studying_in_japan.html">Game for studying in Japan</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/shinji and sword.html">A conversation between Shinji and the sword</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/ayy_gretel.html">Ayy! Gretel!</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('etcList', this)">etc</span>
+                        <ul id="etcList" class="subList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/gyeonggi.html">'Master Class 60h' Flat Form Program</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="menuSection" id="designSection">
+                <div class="menuHeading clickable" onclick="showDesignGallery()">design</div>
+                <div class="subitemGroup">
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('bookList', this)">book</span>
+                        <ul id="bookList" class="subList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/hongik_book.html">Exhibition Book Design for Hongik Univ. Printmaking Graduation Exhibition 《THE SPARE KEY》</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/ultra.html">Ultrafine stone particles</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/seongsil.html">Sincere Score, Sincere Index</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/vikki_book.html">Archiving Book Design for Vikki, Hongik University 2025 Winter International Volunteer Corps</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/NoAccess.html">No Access to Printer</a></li>
+                            <li><span class="item-year">2024</span><a href="html_work_link/ZURY.html">ズURY</a></li>
+                            <li><span class="item-year">2024</span><a href="html_work_link/tsukuba.html">TSUKUBA!</a></li>
+                            <li><span class="item-year">2024</span><a href="html_work_link/muscle.html">Creative muscle Exercise guide</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/law.html">Within the law</a></li>
+                            <li><span class="item-year">2023</span><a href="html_work_link/weed.html">A normal weed guide</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('posterList', this)">poster design</span>
+                        <ul id="posterList" class="subList">
+                            <li><span class="item-year">2026</span><a href="html_work_link/bef.html">Poster Design for 《겉보기엔 조금 긴 이동》 in BeF</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/leejiwon.html">Poster Design for Lee Jiwon's Solo Exhibition</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/hureru.html">Poster, Postcard Design for Joshibi Univ. Group Exhibition 《ふれる》</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('identityList', this)">identity design</span>
+                        <ul id="identityList" class="subList">
+                            <li><span class="item-year">2025</span><a href="html_work_link/vikki.html">Logo Design for Vikki, Hongik University 2025 Winter International Volunteer Corps</a></li>
+                            <li><span class="item-year">2022</span><a href="html_work_link/yellow_punch.html">Rocket Punch 4th mini album [Yellow punch] cover</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('exhibitionList', this)">exhibition design</span>
+                        <ul id="exhibitionList" class="subList">
+                            <li><span class="item-year">2026</span><a href="html_work_link/luminous.html">Exhibition Design for Lee Jiwon's Solo Exhibition</a></li>
+                            <li><span class="item-year">2025</span><a href="html_work_link/hongik.html">Exhibition Design for Hongik Univ. Graduation Exhibition 《THE SPARE KEY》</a></li>
+                        </ul>
+                    </div>
+                    <div class="itemWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('designEtcList', this)">etc</span>
+                        <ul id="designEtcList" class="subList">
+                            <li><span class="item-year">2026</span><a href="html_work_link/web_choijiwoo.html">Web Design for Jiwoo Choi</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="menuSection" id="textSection">
+                <div class="menuHeading clickable" onclick="showTextGallery()">text</div>
+                <div class="subitemGroup">
+                    <div class="yearWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('y2026', this)">2026</span>
+                        <ul id="y2026" class="yearList">
+                            <li><span class="item-year">2026</span><a href="html_text_link/to_24yo_misuk.html">24살의 미숙이에게</a></li>
+                            <li><span class="item-year">2026</span><a href="html_text_link/tomato_to_die.html">죽을 토마토</a></li>
+                        </ul>
+                    </div>
+                    <div class="yearWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('y2025', this)">2025</span>
+                        <ul id="y2025" class="yearList">
+                            <li><span class="item-year">2025</span><a href="html_text_link/house.html">집</a></li>
+                            <li><span class="item-year">2025</span><a href="html_text_link/blind_with_eyes_open.html">눈뜬 장님</a></li>
+                        </ul>
+                    </div>
+                    <div class="yearWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('y2024', this)">2024</span>
+                        <ul id="y2024" class="yearList">
+                            <li><span class="item-year">2024</span><a href="html_text_link/to_buddha.html">받는 이, 佛様</a></li>
+                            <li><span class="item-year">2024</span><a href="html_text_link/her_slip_of_tongue.html">그녀들의 말실수</a></li>
+                            <li><span class="item-year">2024</span><a href="html_text_link/orange_juice.html">오렌지주스</a></li>
+                            <li><span class="item-year">2024</span><a href="html_text_link/to_my_future_child.html">미래의 2세에게</a></li>
+                            <li><span class="item-year">2024</span><a href="html_text_link/thumb.html">엄지손가락</a></li>
+                        </ul>
+                    </div>
+                    <div class="yearWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('y2023', this)">2023</span>
+                        <ul id="y2023" class="yearList">
+                            <li><span class="item-year">2023</span><a href="html_text_link/black_haired_beasts.html">검은 머리 짐승들</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/independence_point.html">독립점</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/short_writings.html">짧은 글들</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/normal_family.html">정상가족</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/homeless_passing.html">노숙자가 지나갈 때</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/sunlight_allergy.html">저는 햇빛을 먹지 못합니다.</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/step_on_kafka.html">카프카를 밟아주세요.</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/hedgehog_dilemma.html">고슴도치 법칙</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/variable_invariable.html">가변은 불가변</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/tomato_to_die.html">죽을 토마토</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/iljido.html">일知도</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/house.html">집</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/blind_with_eyes_open.html">눈뜬 장님</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/tomoya.html">朋哉</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/oh_george_senpai.html">아 조지 선배!</a></li>
+                            <li><span class="item-year">2023</span><a href="html_text_link/to_24yo_misuk.html">24살의 미숙이에게</a></li>
+                        </ul>
+                    </div>
+                    <div class="yearWrapper">
+                        <span class="menuSubitem clickableSubitem" onclick="toggleList('y2022', this)">2022</span>
+                        <ul id="y2022" class="yearList">
+                            <li><span class="item-year">2022</span><a href="html_text_link/walking_into_minjae.html">걸어서 민재속으로_(그녀의 잠꼬대)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="menuSection contactSection" id="contactSectionMenu">
+                <div class="menuHeading clickable" onclick="toggleContactInfo()">contact</div>
+                <div id="contactInfo" class="menuSubitem">
+                    ⛳︎ seoul & tokyo<br>
+                    ☕︎ instagram.<br><a href="https://www.instagram.com/zeonayun/" target="_blank" rel="noopener">@zeonyun</a><br>
+                    ✉︎ e-mail.<br><a href="mailto:jeona828@gmail.com">jeona828@gmail.com</a><br>
+                    ☠︎ web.<br>www.zeonayun.com
+                </div>
+            </div>
+        </div>
+        <div id="artGallery"></div>
+        <div id="designGallery"></div>
+        <div id="textGallery"></div>
+        <div id="contactGallery"></div>
+        <div id="menuOverlay">
+            <button class="closeMenu" onclick="document.getElementById('menuOverlay').classList.remove('show')">close</button>
+            <div id="menuContent">
+                <a href="./html/works.html" class="menuLink">works</a><br>
+                <a href="./html/texts.html" class="menuLink">texts</a><br>
+                <a href="./html/contact.html" class="menuLink">contact</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="copyright">© Jeon Ahyun</div>
+    <script src="index.js"></script>
+</body>
+</html>
