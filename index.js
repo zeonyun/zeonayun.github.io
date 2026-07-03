@@ -392,6 +392,12 @@ function populateTextGallery() {
 }
 
 function toggleContactInfo() {
+    // 데스크탑(웹)은 클릭 시 메뉴 안에서 정보가 내려왔다 들어갔다 하도록 토글하고,
+    // 별도 오버레이(contactGallery)는 모바일에서만 연다
+    if (window.innerWidth > 768) {
+        document.getElementById('contactSectionMenu').classList.toggle('open');
+        return;
+    }
     const gallery = document.getElementById('contactGallery');
     if (gallery.classList.contains('visible')) {
         hideAllGalleriesAndSubmenus();
