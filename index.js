@@ -72,6 +72,7 @@ const designWorks = [
     { href: "html_work_link/law.html",         img: "works_images/law0.jpg",          desc: "Within the law, 2023",                                                  cat: "book" },
     { href: "html_work_link/weed.html",        img: "works_images/weed1.jpg",         desc: "A normal weed guide, 2023",                                             cat: "book" },
     // poster design
+    { href: "html_work_link/bef_chomin.html",    img: "works_images/bef_조민_instagram3.jpg",        desc: "Poster Design for Cho Min Solo Exhibition 《가까운 원경》 in BeF, 2026",     cat: "poster design" },
     { href: "html_work_link/bef.html",    img: "works_images/../works_images/bef_poster1.gif",        desc: "Poster Design for 《겉보기엔 조금 긴 이동》 in BeF, 2026",     cat: "poster design" },
     { href: "html_work_link/leejiwon.html",    img: "works_images/leejiwon_motion_poster.gif",        desc: "Poster Design for Lee Jiwon's Solo Exhibition 《Luminous Void, Moments of Fulfillment》, 2026",     cat: "poster design" },
     { href: "html_work_link/hureru.html",    img: "works_images/hureru.gif",        desc: "Exhibition Design for Joshibi Univ. Group Exhibition 《ふれる》, 2025",                                  cat: "poster design" },
