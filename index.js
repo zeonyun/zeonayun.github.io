@@ -71,17 +71,16 @@ const designWorks = [
     { href: "html_work_link/muscle.html",      img: "works_images/muscle1.jpg",       desc: "Creative muscle Exercise guide, 2024",                                  cat: "book" },
     { href: "html_work_link/law.html",         img: "works_images/law0.jpg",          desc: "Within the law, 2023",                                                  cat: "book" },
     { href: "html_work_link/weed.html",        img: "works_images/weed1.jpg",         desc: "A normal weed guide, 2023",                                             cat: "book" },
-    // poster design
-    { href: "html_work_link/bef_chomin.html",    img: "works_images/bef_조민_instagram3.jpg",        desc: "Poster Design for Cho Min Solo Exhibition 《가까운 원경》 in BeF, 2026",     cat: "poster design" },
-    { href: "html_work_link/bef.html",    img: "works_images/../works_images/bef_poster1.gif",        desc: "Poster Design for 《겉보기엔 조금 긴 이동》 in BeF, 2026",     cat: "poster design" },
-    { href: "html_work_link/leejiwon.html",    img: "works_images/leejiwon_motion_poster.gif",        desc: "Poster Design for Lee Jiwon's Solo Exhibition 《Luminous Void, Moments of Fulfillment》, 2026",     cat: "poster design" },
-    { href: "html_work_link/hureru.html",    img: "works_images/hureru.gif",        desc: "Exhibition Design for Joshibi Univ. Group Exhibition 《ふれる》, 2025",                                  cat: "poster design" },
+    // poster & exhibition design
+    { href: "html_work_link/bef_chomin.html",    img: "works_images/bef_조민_instagram3.jpg",        desc: "Exhibition Design for Cho Min Solo Exhibition 《가까운 원경》 in BeF, 2026",     cat: "poster & exhibition design" },
+    { href: "html_work_link/bef.html",    img: "works_images/../works_images/bef_poster1.gif",        desc: "Exhibition Design for 《겉보기엔 조금 긴 이동》 in BeF, 2026",     cat: "poster & exhibition design" },
+    { href: "html_work_link/luminous.html",    img: "works_images/luminous1.jpg",        desc: "Exhibition Design for Lee Jiwon's Solo Exhibition 《Luminous Void, Moments of Fulfillment》, 2026",     cat: "poster & exhibition design" },
+    { href: "html_work_link/leejiwon.html",    img: "works_images/leejiwon_motion_poster.gif",        desc: "Poster Design for Lee Jiwon's Solo Exhibition 《Luminous Void, Moments of Fulfillment》, 2026",     cat: "poster & exhibition design" },
+    { href: "html_work_link/hureru.html",    img: "works_images/hureru.gif",        desc: "Exhibition Design for Joshibi Univ. Group Exhibition 《ふれる》, 2025",                                  cat: "poster & exhibition design" },
+    { href: "html_work_link/hongik.html",      img: "works_images/thesparekey0.jpg",  desc: "Exhibition Design for Hongik Univ. Graduation Exhibition 《THE SPARE KEY》, 2025",                      cat: "poster & exhibition design" },
     // identity design
     { href: "html_work_link/vikki.html", img: "works_images/vikki1.jpg", desc: "Logo Design for Vikki, Hongik University 2025 Winter International Volunteer Corps",                                               cat: "identity design" },
     { href: "html_work_link/yellow_punch.html", img: "works_images/rocket_punch1.jpg", desc: "Rocket Punch 4th mini album [Yellow punch] cover, 2022",                                               cat: "identity design" },
-    // exhibition design
-    { href: "html_work_link/luminous.html",    img: "works_images/luminous1.jpg",        desc: "Exhibition Design for Lee Jiwon's Solo Exhibition 《Luminous Void, Moments of Fulfillment》, 2026",     cat: "exhibition design" },
-    { href: "html_work_link/hongik.html",      img: "works_images/thesparekey0.jpg",  desc: "Exhibition Design for Hongik Univ. Graduation Exhibition 《THE SPARE KEY》, 2025",                      cat: "exhibition design" },
     // etc
     { href: "html_work_link/web_choijiwoo.html", img: "works_images/web_jiwoochoi.gif",            desc: "Web Design for Jiwoo Choi, 2026",                                                                        cat: "etc" },
 ];
@@ -323,7 +322,7 @@ function showDesignGallery() {
     }
     hideAllGalleriesAndSubmenus();
     if (!gallery.dataset.populated) {
-        populateImageGallery('designGallery', designWorks, ['book', 'poster design', 'identity design', 'exhibition design', 'etc']);
+        populateImageGallery('designGallery', designWorks, ['book', 'poster & exhibition design', 'identity design', 'etc']);
         gallery.dataset.populated = '1';
     }
     gallery.scrollTop = 0;
